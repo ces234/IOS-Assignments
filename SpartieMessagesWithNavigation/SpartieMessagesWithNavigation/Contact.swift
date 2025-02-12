@@ -12,5 +12,6 @@ struct Contact : Identifiable {
     var firstName:String
     var lastName:String
     var isFavorite:Bool
-    var photo:String
+    var picture:String
+    var messages:[Message]
 }

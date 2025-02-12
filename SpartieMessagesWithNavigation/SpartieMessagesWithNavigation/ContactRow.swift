@@ -12,22 +12,27 @@ struct ContactRow: View {
     
     var body: some View {
         HStack {
-//            Image(systemName: "contact.photo")
-//                .imageScale(.large)
-//            if let photo = contact.photo, !photo.isEmpty {
-//                Image(photo)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 50, height: 50)
-//                    .clipShape(Circle())
-//            } else {
-////              ADD IMAGE IN ASSETS
-//                Image(systemName: "person.crop.circle.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 50, height: 50)
-//                    .foregroundColor(.gray)
-//            }
+            if contact.picture != "" {
+                Image(contact.picture)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 75, height: 75)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                    .shadow(radius: 5)
+                    .padding(.trailing, 10)
+            }
+            else {
+                Image("DefaultContact")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 75, height: 75)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                    .shadow(radius: 5)
+                    .padding(.trailing, 10)
+            }
+            
             
             VStack(alignment: .leading) {
                 Spacer()
@@ -44,12 +49,14 @@ struct ContactRow: View {
                 if(contact.isFavorite) {
                     Image(systemName: "star.fill")
                         .imageScale(.large)
+                        .padding(.trailing, 10)
                 }
             }
-        }.padding()
+        }
+//        .padding()
     }
 }
 
 #Preview {
-    ContactRow(contact: Contact(firstName: "Zoe", lastName: "Goldberg", isFavorite: true, photo: ""))
+    ContactRow(contact: Contact(firstName: "Zoe", lastName: "Goldberg", isFavorite: true, picture: "", messages: []))
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct LoginView: View {
+//    @Environment(\.dismiss) var dismiss
     @Binding var isShowingLogin: Bool
     @State private var username = ""
     @State private var password = ""
@@ -21,8 +22,10 @@ struct LoginView: View {
                 .font(.largeTitle)
             
             TextField("Username", text: $username)
+                .textInputAutocapitalization(.never)
                 .padding()
-            TextField("Password", text: $password)
+            SecureField("Password", text: $password)
+                .textInputAutocapitalization(.never)
                 .padding()
             
             if !errorMessage.isEmpty {
@@ -38,8 +41,8 @@ struct LoginView: View {
             .foregroundColor(.white)
             .cornerRadius(12)
 
-
-        }
+        }.padding()
+            .interactiveDismissDisabled()
 
     }
 
