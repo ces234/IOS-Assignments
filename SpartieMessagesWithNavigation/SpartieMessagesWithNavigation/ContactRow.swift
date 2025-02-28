@@ -50,9 +50,11 @@ struct ContactRow: View {
                     Image(systemName: "star.fill")
                         .imageScale(.large)
                         .padding(.trailing, 10)
+                        .foregroundStyle(Color(UIColor(named: "DarkPink")!))
                 }
             }
         }
+
 //        .padding()
     }
 }

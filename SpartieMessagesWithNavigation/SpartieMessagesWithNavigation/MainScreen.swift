@@ -19,24 +19,31 @@ struct MainScreen: View {
             
                 List {
                     ForEach($contacts) { $currContact in
-                        // ADD A NAVIGATION LINK TO THE MESSAGES OF PERSON
                         NavigationLink {
                             MessagePageView(contact: $currContact, contacts: $contacts)
-                        } label: {
+                        }
+                        label: {
                             ContactRow(contact: currContact)
                         }
-                        
-                        
+
                     }
-                }.listStyle(.plain)
+
+                }                                            .listStyle(.plain)
                     .padding(.top, 15)
+                    .background(Color(UIColor(named: "BackgroundColor")!))
+
+
+
             
                
             }
             .navigationTitle("Contacts")
             .sheet(isPresented: $showing) {
                 ProfileView(contact: $contact, contacts: $contacts, isUpdating: false)
+
+                
             }
+            .background(Color(UIColor(named: "BackgroundColor")!))
             .toolbar() {
                 Button(action:  {
                     showing.toggle()
@@ -48,8 +55,10 @@ struct MainScreen: View {
             
         }
         
-        
         .padding()
+        .background(Color(UIColor(named: "BackgroundColor")!))
+
+        
     }
 }
 

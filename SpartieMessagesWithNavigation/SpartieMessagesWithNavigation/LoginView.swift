@@ -20,13 +20,16 @@ struct LoginView: View {
         VStack {
             Text("Sign In")
                 .font(.largeTitle)
+
             
             TextField("Username", text: $username)
                 .textInputAutocapitalization(.never)
                 .padding()
+
             SecureField("Password", text: $password)
                 .textInputAutocapitalization(.never)
                 .padding()
+
             
             if !errorMessage.isEmpty {
                 Text(errorMessage)
@@ -43,8 +46,11 @@ struct LoginView: View {
 
         }.padding()
             .interactiveDismissDisabled()
+            .frame(height: 800)
+            .background(Color(UIColor(named: "BackgroundColor")!))
 
     }
+
 
     
     func login() {

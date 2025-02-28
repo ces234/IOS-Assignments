@@ -66,6 +66,8 @@ struct ProfileView: View {
         }
         .padding()
         .navigationTitle(isUpdating ? "Update Contact" : "Create Contact")
+        .background(Color(UIColor(named: "BackgroundColor")!))
+
     }
 }
 
