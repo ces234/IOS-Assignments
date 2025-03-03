@@ -15,6 +15,10 @@ struct NASAResponse: Codable {     //MUST BE CODABLE
     var service_version: String
     var title: String
     var url: String
+    
+    func toString() -> String {
+        return date
+    }
 }
 
 

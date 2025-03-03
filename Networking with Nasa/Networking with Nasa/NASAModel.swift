@@ -13,38 +13,21 @@ class NASAModel {
     var refreshDate:Date?
     
     let apiKey = "2uzM8sOZSBuJ2qTdUspVQ8HqWN9XqxM0Te0LMAWQ"
+    
 
     func refresh(date: String? = nil) async {
         self.nasaImage = await getNasaDetails(date: date)
     }
+
     
-    func getPreviousDate() -> String? {
-        guard let currentDate = nasaImage?.date else { return nil }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if let current = dateFormatter.date(from: currentDate),
-           let previous = Calendar.current.date(byAdding: .day, value: -1, to: current) {
-            return dateFormatter.string(from: previous)
-        }
-        return nil
-    }
-    
-    func getNextDate() -> String? {
-        guard let currentDate = nasaImage?.date else { return nil }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if let current = dateFormatter.date(from: currentDate),
-           let next = Calendar.current.date(byAdding: .day, value: 1, to: current) {
-            return dateFormatter.string(from: next)
-        }
-        return nil
-    }
     
     func getDate() -> String? {
         guard let currentDate = nasaImage?.date else { return nil }
         return currentDate
+    }
+    
+    func toString() -> String? {
+        return nasaImage?.date
     }
     
     private func getNasaDetails (date: String? = nil) async -> NASAResponse? {
