@@ -13,13 +13,10 @@ class NASAModel {
     var refreshDate:Date?
     
     let apiKey = "2uzM8sOZSBuJ2qTdUspVQ8HqWN9XqxM0Te0LMAWQ"
-    
 
     func refresh(date: String? = nil) async {
         self.nasaImage = await getNasaDetails(date: date)
     }
-
-    
     
     func getDate() -> String? {
         guard let currentDate = nasaImage?.date else { return nil }
@@ -28,6 +25,16 @@ class NASAModel {
     
     func toString() -> String? {
         return nasaImage?.date
+    }
+    
+    func getTitle() -> String? {
+        guard let title = nasaImage?.title else { return nil }
+        return title
+    }
+    
+    func getDetails() -> String? {
+        guard let explanation = nasaImage?.explanation else { return nil }
+        return explanation
     }
     
     private func getNasaDetails (date: String? = nil) async -> NASAResponse? {

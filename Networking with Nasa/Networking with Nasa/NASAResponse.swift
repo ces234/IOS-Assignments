@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NASAResponse: Codable {     //MUST BE CODABLE
+struct NASAResponse: Codable {
     var date: String
     var explanation: String
     var hdurl: String

@@ -22,7 +22,6 @@ struct ContentView: View {
         }
     }
     
-    
     func getPreviousDate(currentDate: String) -> String? {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -41,7 +40,7 @@ struct ContentView: View {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             var dateString = dateFormatter.string(from: Date()) // Start with today's date
 
-            for _ in 0..<5 {
+            for _ in 0..<6 {
                 let currentDate = dateString
                 await nasaModel.refresh(date: currentDate)
                 
@@ -54,56 +53,27 @@ struct ContentView: View {
                 } else {
                     break // Stop loop if we can't get a valid previous date
                 }
-
-                print(dateString) // Debugging: Check if dates are updating correctly
             }
             
             fetchingPastImages = false
         }
     }
 
-    
-    
-    
     var body: some View {
             VStack {
-                Text("Today's NASA Image")
-                    .font(.title)
-                
-                AsyncImage(url:nasaModel.imageURL) { image in
-                    image.resizable()
-                        .aspectRatio(contentMode:.fit)
-                } placeholder: {
-                    if(fetchingNasaResponse){
-                        ProgressView()
-                    }
-                }
-                
-                if let currentDate = nasaModel.getDate() {
-                    Text(currentDate)
-                }
-                
-                
-                
+                Text("NASA APOD")
+                    .font(.title).bold()
+                                
                 NavigationStack {
                     List(pastImages, id: \.date) { image in
-                        NavigationLink(destination: DetailView(item: image)) { 
-                            Text(image.date)
+                        NavigationLink(destination: DetailView(item: image)) {
+                            ImageRow(item: image)
                         }
                     }
                 }
-                            
-                
+                .listStyle(.plain)
                 Spacer()
-                Button("Get Nasa Photo!"){
-                    fetchingNasaResponse = true
-                    
-                }
-                .disabled(fetchingNasaResponse)
-                
-
             }
-            .padding()
             .onAppear {
                 Task{
                     loadNasaPicture()
