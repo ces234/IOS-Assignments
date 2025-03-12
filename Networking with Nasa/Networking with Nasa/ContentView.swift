@@ -38,8 +38,8 @@ struct ContentView: View {
         Task {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            var dateString = dateFormatter.string(from: Date()) // Start with today's date
-
+            var dateString = dateFormatter.string(from: Date())
+            
             for _ in 0..<6 {
                 let currentDate = dateString
                 await nasaModel.refresh(date: currentDate)
