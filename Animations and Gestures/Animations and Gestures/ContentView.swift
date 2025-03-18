@@ -9,13 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
+        NavigationStack {
             Spacer()
             Text("Quizzo")
                 .font(.title)
                 .padding()
             Text("Are you ready to test your knowledge?")
                 .padding()
+            
             Button("Begin"){
                 
             }

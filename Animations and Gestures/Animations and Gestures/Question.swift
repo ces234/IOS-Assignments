@@ -7,8 +7,14 @@
 
 import Foundation
 
+struct Answer : Hashable {
+    var id = UUID()
+    var isCorrect:Bool
+    var text:String
+}
+
 struct Question {
     var text: String
-    var answers: [String]
-    var correctAnswer: String
+    var answers: [Answer]
+//    var correctAnswer: Answer
 }
