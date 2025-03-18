@@ -53,16 +53,15 @@ struct QuestionPage: View {
                             }
                         }
                     }
-                    .phaseAnimator([0,1,2,3], trigger: animateWrong { view, phase in
+                    .phaseAnimator([0, 1, 2, 3], trigger: animateWrong) { view, phase in
                         view
                             .scaleEffect(phase == 1 || phase == 2 ? 1.1 : 1)
                             .rotationEffect(phase == 1 ? .degrees(-10) : .degrees(0))
                             .rotationEffect(phase == 2 ? .degrees(10) : .degrees(0))
-
-                                                
                     } animation: { phase in
                         .easeInOut.speed(1.2) // Double the speed
                     }
+
 //                    .onTapGesture {
 //                        withAnimation(.default) {
 //                            if answer.isCorrect {
