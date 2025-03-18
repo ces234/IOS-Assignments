@@ -26,10 +26,6 @@ struct QuestionPage: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            Text("Quizzo")
-                .font(.title2)
-            Spacer()
             
             Text(questions[currentQuestionIndex].text)
                 .font(.title)
@@ -43,7 +39,6 @@ struct QuestionPage: View {
                 )
                 .padding(.bottom, 7.0)
             }
-            Spacer()
         }.padding()
         
     }

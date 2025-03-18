@@ -52,7 +52,7 @@ struct AnswerView: View {
             .animation(.default.speed(5.0), value: showIncorrect)
             .scaleEffect(showCorrect ? 100 : 1.0)
             .zIndex(showCorrect ? 5 : 0)
-            .animation(.default.speed(1).repeatForever(autoreverses: true), value: showCorrect)
+            .animation(.default.speed(0.8).repeatForever(autoreverses: true), value: showCorrect)
         //            .rotationEffect(.degrees(showIncorrect ? 15 : 0))
 //            .animation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true))
 //            .animation(.easeInOut(duration: 0.5), value: isSelected)
