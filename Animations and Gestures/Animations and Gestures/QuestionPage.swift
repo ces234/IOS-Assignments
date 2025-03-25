@@ -27,18 +27,25 @@ struct QuestionPage: View {
     var body: some View {
         VStack {
             
-            Text(questions[currentQuestionIndex].text)
-                .font(.title)
-                .multilineTextAlignment(.center)
-                .bold()
-            
-            ForEach(questions[currentQuestionIndex].answers, id: \.self) { answer in
-                AnswerView(
-                    answer: answer,
-                    onTap: { handleAnswerSelection(answer) }
-                )
-                .padding(.bottom, 7.0)
+            if(showResults) {
+                ResultsPage(incorrectCount: incorrectCount, onRestart: {restartQuiz()})
             }
+            else {
+                Text(questions[currentQuestionIndex].text)
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                    .bold()
+                
+                ForEach(questions[currentQuestionIndex].answers, id: \.self) { answer in
+                    AnswerView(
+                        answer: answer,
+                        onTap: { handleAnswerSelection(answer) }
+                    )
+                    .padding(.bottom, 7.0)
+                }
+            }
+            
+            
         }.padding()
         
     }
@@ -52,12 +59,19 @@ struct QuestionPage: View {
                 
                 selectedAnswer = nil
             } else {
-                // GO TO RESTART PAGE
+                showResults = true
             }
            
         } else {
             incorrectCount += 1
         }
+    }
+    
+    private func restartQuiz() {
+        incorrectCount = 0
+        currentQuestionIndex = 0
+        showResults = false
+        questions.shuffle()
     }
 
 }

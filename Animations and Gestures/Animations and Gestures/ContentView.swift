@@ -32,8 +32,8 @@ struct ContentView: View {
                 .background(Color.blue)  // Background color
                 .foregroundColor(.white) // Text color
                 .cornerRadius(10)
+                Spacer()
             }
-            Spacer()
                      
             if showQuiz {
                 QuestionPage()
