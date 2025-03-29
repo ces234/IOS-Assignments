@@ -1,123 +1,134 @@
-//
-//  HomePageView.swift
-//  SmartiePants
-//
-//  Created by Zoe Goldberg on 3/28/25.
-//
-
 import SwiftUI
 
+/* TODO: Spacing on this page is weird */
 struct HomePageView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
+    /* TODO: Pull these variables from saved data */
+    var recentCategories = ["Entertainment", "Science: Computers", "Celebrities"]
+    var usersTopCategories = ["Sports", "Entertainment: Music", "Animals"]
 
-            VStack(alignment: .leading) {
-                Text("Welcome back,")
-                    .font(.title2)
-                Text("Caroline") //REPLACE WITH USER'S NAME PASSED IN
-                    .font(.title)
-                    .bold()
-                
-                Rectangle()
-                    .frame(width: 250, height: 3)
-                
-            }
-            
-            HStack {
-                HStack {
-                    Image(systemName: "trophy")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width:50, height: 50)
-                        .foregroundColor(Color.white)
-                        
-                    VStack(alignment: .leading) {
-                        Text("Rank:")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.white)
-                        
-                        Text("5 / 123")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                            .foregroundColor(Color.white)
-                    }
-                }.padding()
-                
-                                
-                HStack {
-                    Image(systemName: "star.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width:48, height: 48)
-                        .foregroundColor(Color.white)
-                        
-                    VStack(alignment: .leading) {
-                        Text("Points:")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.white)
-                        
-                        Text("6000")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                            .foregroundColor(Color.white)
-                    }
-                }.padding(25.0)
-                
-            }
-            .background(Color.gray)
-            .clipShape(.rect(cornerRadius: 15))
-            .padding()
-            
-            
-            VStack(alignment: .leading) {
-                Text("History")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                List {
-                    Text("Daily Streak")
-                        .bold()
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
                     
-                    Text("Daily Points Record")
-                        .bold()
-                    
-                    VStack {
-                        Text("Top Categories")
+                    VStack(alignment: .leading) {
+                        Text("Welcome back,")
+                            .font(.title2)
+                        Text("Caroline") /* TODO: REPLACE WITH USER'S NAME PASSED IN */
+                            .font(.title)
                             .bold()
                         
-                        /* MAKE THIS A FOR EACH AND PULL TOP CATEGORIES */
-                        Text("Sports")
-                            .font(.callout)
-                            .background(Color.gray.opacity(0.3))
-                            .clipShape(.rect(cornerRadius: 5))
-                        
+                        Rectangle()
+                            .frame(width: 250, height: 3)
                     }
-                   
-                }
-                .listStyle(.inset)
-                .scrollDisabled(true)
-            }
-            
-            /* PULL RECENT CATEGORIES */
-            VStack(alignment: .leading) {
-                Text("Recent Categories")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                List {
-                   // CHANGE THIS TO RECENT CATEGORIES BOX
                     
+                    VStack {
+                        HStack {
+                            HStack {
+                                Image(systemName: "trophy")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.white)
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Rank:")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    
+                                    Text("5 / 123")
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .padding()
+                            
+                            HStack {
+                                Image(systemName: "star.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 48, height: 48)
+                                    .foregroundColor(.white)
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Points:")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    
+                                    Text("6000")  /* TODO: REPLACE WITH DATA */
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .background(Color.gray)
+                        .clipShape(.rect(cornerRadius: 15))
+                        .padding()
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("History")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        
+                        List {
+                            /* TODO: REPLACE WITH DATA */
+                            HStack {
+                                Text("Daily Streak:").bold()
+                                Text("5")
+                            }
+                            HStack {
+                                Text("Daily Points Record").bold()
+                                Text("14000")
+                            }
+                           
+                            VStack(alignment: .leading) {
+                                Text("Top Categories").bold()
+
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 10) {
+                                        ForEach(usersTopCategories, id: \.self) { category in
+                                            Text(category)
+                                                .font(.callout)
+                                                .padding(8)
+                                                .background(Color.gray.opacity(0.3))
+                                                .clipShape(RoundedRectangle(cornerRadius: 7))
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                }
+                            }
+                        }
+                        .listStyle(.inset)
+                        .scrollDisabled(true)
+                        .frame(height: 200) // Limit height of the list
+                    }.padding(.horizontal)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Recent Categories")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        
+                        VStack(spacing: 8) { // Use a VStack instead of List to control layout
+                            ForEach(recentCategories, id: \.self) { category in
+                                NavigationLink(destination: TriviaView()) {
+                                    CategoryPlayRow(category: category)
+                                }
+                                .buttonStyle(PlainButtonStyle()) // Remove default navigation link styling
+                            }
+                        }
+                    }.padding(.horizontal)
+                    
+                    Spacer()
                 }
-                .listStyle(.inset)
-                .scrollDisabled(true)
+                
             }
-           
-            
-        }
-        .padding()
-        
+        }.padding()
     }
 }
 

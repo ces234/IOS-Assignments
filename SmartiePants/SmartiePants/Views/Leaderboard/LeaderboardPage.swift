@@ -7,9 +7,70 @@
 
 import SwiftUI
 
+//struct with attributes needed for each row, but need to pull from actual data
+// eventually move to different file
+struct UserStats : Identifiable{
+    let id = UUID()
+    var user:String
+    var points:Int
+}
+
+enum PointsCategory : String, CaseIterable, Identifiable {
+    var id: Self { self }
+
+    case totalPoints
+    // ADD MORE HERE
+    
+    var displayName: String {
+        switch self {
+            case .totalPoints:
+                return "Total Points"
+        }
+    }
+
+}
+
 struct LeaderboardPage: View {
+    /* TODO: Pull from data - need to sort by points */
+    var stats = [
+        UserStats(user: "Caroline", points: 50000),
+        UserStats(user: "Amala", points: 600000),
+        UserStats(user: "Username2", points: 20000),
+        UserStats(user: "Username3", points: 5),
+        UserStats(user: "Zoe", points: 4000)
+    ].sorted(by: {$0.points > $1.points})
+    
+    @State var pointsSorter:PointsCategory = .totalPoints
+    
     var body: some View {
-        Text("LEADERBOARD")
+        ScrollView {
+            Heading(headingText: "Daily Leaderboard")
+            
+            /* TODO: Figure out how to style this */
+            VStack {
+                Picker("Points Selector", selection: $pointsSorter) {
+                    ForEach(PointsCategory.allCases) { category in
+                        Text(category.displayName)
+                            .foregroundStyle(Color.white)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
+                    }
+                }
+                .foregroundStyle(Color.white)
+                .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
+            }
+           
+            
+            
+            
+            
+            ForEach(1...stats.count, id: \.self) { index in
+                let i = index - 1
+                LeaderboardRow(rank: index, user: stats[i].user, points: stats[i].points)
+            }
+            
+            
+        }.padding()
+       
     }
 }
 

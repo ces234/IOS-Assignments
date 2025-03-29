@@ -25,7 +25,6 @@ struct BottomBarView: View {
                         
                 }
 
-                
             PlayGeneralView()
                 .tabItem {
                     Image(systemName: "play.circle.fill")
