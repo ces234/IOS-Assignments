@@ -8,20 +8,25 @@
 import SwiftUI
 
 struct QuestionPage: View {
+    @State var onNext:() -> Void
     @State var category = "Entertainment: Books"
     
+    //TODO: May have to move this into StartView() to know when to go to results page
+    @State var answerSelected = false
     @State private var isTimerFinished = false
     @State private var timerRunning = true
-    @State var answerSelected = false
-
     @State private var currScore = 0
     
     /* TODO: Repalce this with models? */
     @State private var currQuestionIndex = 1
-    private var currQuestion = "In which classic novel is there a character named Homer Simpson?"
-    private var answers = ["Catch-22", "The Day of the Locust", "Of Mice and Men", "A Separate Peace"]
-    private var correctAnswer = "The Day of the Locust"
+    @State private var currQuestion = "In which classic novel is there a character named Homer Simpson?"
+    @State private var answers = ["Catch-22", "The Day of the Locust", "Of Mice and Men", "A Separate Peace"]
+    @State private var correctAnswer = "The Day of the Locust"
     
+//    init(onNext:()->Void) {
+//        _onNext = State(wrappedValue: onNext)
+//    }
+//    
     var body: some View {
         VStack {
             HStack {
@@ -76,7 +81,7 @@ struct QuestionPage: View {
                     } label: {
                         AnswerRow(answerText: answer, isCorrect: answer == correctAnswer, showAnswer: isTimerFinished || answerSelected)
                     }.buttonStyle(.plain)
-                        .disabled(isTimerFinished || (answerSelected && answer != correctAnswer))
+                        .disabled(isTimerFinished || answerSelected)
                 }
             }.padding(.horizontal)
             
@@ -88,7 +93,7 @@ struct QuestionPage: View {
             HStack {
                 Spacer()
                 Button {
-                    // TODO: GO TO NEXT QUESTION
+                    onNext()
                 } label: {
                     HStack {
                         Text("Next")
@@ -100,20 +105,19 @@ struct QuestionPage: View {
                             .frame(width:16, height: 16)
                             .foregroundColor(Color.black)
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 20)
                     .background(Color.gray.opacity(0.15))
                     .clipShape(.rect(cornerRadius: 10))
-                    .padding(.horizontal)
                 }.buttonStyle(.plain)
-            }
-        }
-        
+                    .padding(.horizontal)
+            }.padding()
+        }        
            
         
        
     }
 }
 
-#Preview {
-    QuestionPage()
+#Preview {    
+    QuestionPage(onNext: {})
 }

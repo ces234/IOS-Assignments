@@ -5,6 +5,8 @@ struct HomePageView: View {
     /* TODO: Pull these variables from saved data */
     var recentCategories = ["Entertainment", "Science: Computers", "Celebrities"]
     var usersTopCategories = ["Sports", "Entertainment: Music", "Animals"]
+    
+    @State var isCategorySelected = false
 
     var body: some View {
         NavigationStack {
@@ -116,10 +118,10 @@ struct HomePageView: View {
                         
                         VStack(spacing: 8) { // Use a VStack instead of List to control layout
                             ForEach(recentCategories, id: \.self) { category in
-                                NavigationLink(destination: TriviaView()) {
-                                    CategoryPlayRow(category: category)
+                                CategoryPlayRow(category: category)
+                                .onTapGesture {
+                                    isCategorySelected.toggle()
                                 }
-                                .buttonStyle(PlainButtonStyle()) // Remove default navigation link styling
                             }
                         }
                     }.padding(.horizontal)
@@ -129,6 +131,9 @@ struct HomePageView: View {
                 
             }
         }.padding()
+        .fullScreenCover(isPresented: $isCategorySelected) {
+            StartView()
+        }
     }
 }
 

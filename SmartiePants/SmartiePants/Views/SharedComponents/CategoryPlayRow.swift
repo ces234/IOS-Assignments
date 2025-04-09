@@ -29,7 +29,7 @@ struct CategoryPlayRow: View {
                 .padding(.vertical, 20.0)
         }
         .frame(maxWidth: .infinity)
-        .background(Color.gray.opacity(0.3))
+        .background(Color.gray.opacity(0.2))
         .clipShape(.rect(cornerRadius: 10))
     }
 }

@@ -19,6 +19,7 @@ struct PlayGeneralView: View {
     var allCategories = ["Entertainment: Books", "Science: Computers", "Celebrities", "Entertainment: Music", "Science and Nature", "Geography", "Animals", "Entertainment: TV", "Sports"]
     
     @State var selectedDifficulty:Difficulty = .easy
+    @State var isCategorySelected = false
     
     var body: some View {
         NavigationView {
@@ -37,12 +38,13 @@ struct PlayGeneralView: View {
                     }.pickerStyle(.palette)
                         .padding(.bottom)
                     
-                    VStack(spacing: 8) { // Use a VStack instead of List to control layout
+                    VStack(spacing: 8) { 
                         ForEach(allCategories, id: \.self) { category in
-                            NavigationLink(destination: TriviaView()) {
+                            //TODO: Formatting when navigating to Start page is weird
                                 CategoryPlayRow(category: category)
-                            }
-                            .buttonStyle(PlainButtonStyle()) // Remove default navigation link styling
+                                .onTapGesture {
+                                    isCategorySelected.toggle()
+                                }
                         }
                     }
                     
@@ -50,7 +52,9 @@ struct PlayGeneralView: View {
                 
             }
         }.padding()
-        
+        .fullScreenCover(isPresented: $isCategorySelected) {
+            StartView()
+        }
     }
 }
 

@@ -33,16 +33,15 @@ struct AnswerRow: View {
         }
         
         .frame(maxWidth: .infinity)
-        //TODO: FIX BORDER
-        .border(borderColor(), width: 3)
+        .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(borderColor(), lineWidth: 3)
+            )
         .background(Color.gray.opacity(0.15))
-        .clipShape(.rect(cornerRadius: 10))
-        
        
     }
 }
 
 #Preview {
-    @Previewable @State var isSelected = false
-    AnswerRow()
+    AnswerRow(isCorrect: true, showAnswer: false)
 }
