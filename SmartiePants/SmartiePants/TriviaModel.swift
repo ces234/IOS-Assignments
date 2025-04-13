@@ -9,7 +9,7 @@
 import Foundation
 
 
-class TriviaModel: ObservableObject {
+class TriviaclModel: ObservableObject {
     @Published var triviaResponse: TriviaResponse?
     @Published var questions: [Question]?
     
