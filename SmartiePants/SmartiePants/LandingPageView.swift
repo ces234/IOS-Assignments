@@ -34,8 +34,8 @@ struct LandingPageView: View {
             }
 
             
-            Button("Log in"){
-                
+            NavigationLink(destination: BottomBarView()) {
+                Text("Log in")
             }
             .font(.headline)
             .padding()

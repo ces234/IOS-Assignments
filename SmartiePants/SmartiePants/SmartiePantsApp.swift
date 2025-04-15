@@ -13,5 +13,6 @@ struct SmartiePantsApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: User.self)
     }
 }

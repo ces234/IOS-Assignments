@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SignupView: View {
     @State var firstName = ""
@@ -13,6 +14,24 @@ struct SignupView: View {
     @State var username = ""
     @State var password = ""
     
+    @Environment(\.modelContext) var modelContext
+    
+    func handleSignUp() {
+        // Create a new instance of the User model with the entered details
+        let newUser = User(firstName: firstName, lastName: lastName, username: username, password: password)
+        
+        // Insert the new user object into the model context
+        modelContext.insert(newUser)
+        
+        // Save the context to persist the new user data
+        do {
+            try modelContext.save()
+            print("User saved successfully!")
+        } catch {
+            print("Error saving user: \(error)")
+        }
+        
+    }
     var body: some View {
         NavigationStack {
             
@@ -73,10 +92,6 @@ struct SignupView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: 100)
                 }
-                
-                
-
-                    
 
             }
             .padding()

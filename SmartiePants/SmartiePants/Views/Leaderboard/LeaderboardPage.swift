@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 //struct with attributes needed for each row, but need to pull from actual data
 // eventually move to different file
@@ -17,17 +18,17 @@ struct UserStats : Identifiable{
 
 enum PointsCategory : String, CaseIterable, Identifiable {
     var id: Self { self }
-
+    
     case totalPoints
     // ADD MORE HERE
     
     var displayName: String {
         switch self {
-            case .totalPoints:
-                return "Total Points"
+        case .totalPoints:
+            return "Total Points"
         }
     }
-
+    
 }
 
 struct LeaderboardPage: View {
@@ -39,6 +40,9 @@ struct LeaderboardPage: View {
         UserStats(user: "Username3", points: 5),
         UserStats(user: "Zoe", points: 4000)
     ].sorted(by: {$0.points > $1.points})
+    
+    @Query(sort: \User.dailyPoints, order: .reverse) var users: [User]
+    
     
     @State var pointsSorter:PointsCategory = .totalPoints
     
@@ -58,9 +62,12 @@ struct LeaderboardPage: View {
                 .foregroundStyle(Color.white)
                 .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
             }
-           
             
             
+            // Display the user data from the data store
+            ForEach(Array(users.enumerated()), id: \.element.id) { index, user in
+                LeaderboardRow(rank: index + 1, user: user.username, points: user.dailyPoints)
+            }
             
             
             ForEach(1...stats.count, id: \.self) { index in
@@ -70,7 +77,7 @@ struct LeaderboardPage: View {
             
             
         }.padding()
-       
+        
     }
 }
 
