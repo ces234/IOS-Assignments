@@ -1,32 +1,73 @@
-//
-//  StartView.swift
-//  SmartiePants
-//
-//  Created by Zoe Goldberg on 3/29/25.
-//
-
 import SwiftUI
 
 struct StartView: View {
-    @Environment(\.dismiss) var dismiss
-    @State var selectedCategory = "Entertainment: Books"
-    @State var startQuiz = false
     
+    @Environment(\.dismiss) var dismiss
+    @State var triviaModel = TriviaModel()
+    @State var fetchingQuestions = false
+    @Binding var selectedCategoryNumber: Int? // Use Binding to receive the value
+    
+    @State var startQuiz = false
     @State var showResults = false
-    // TODO: Load questions on this view and pass into QuestionPage?
+    @State var currScore = 0
+    
+    let categories = [
+        (name: "General Knowledge", number: 9),
+        (name: "Books", number: 10),
+        (name: "Film", number: 11),
+        (name: "Music", number: 12),
+        (name: "Musical Theater", number: 13),
+        (name: "Television", number: 14),
+        (name: "Video Games", number: 15),
+        (name: "Board Games", number: 16),
+        (name: "Science & Nature", number: 17),
+        (name: "Computers", number: 18),
+        (name: "Mathematics", number: 19),
+        (name: "Mythology", number: 20),
+        (name: "Sports", number: 21),
+        (name: "Geography", number: 22),
+        (name: "History", number: 23),
+        (name: "Politics", number: 24),
+        (name: "Art", number: 25),
+        (name: "Celebrities", number: 26),
+        (name: "Animals", number: 27),
+        (name: "Vehicles", number: 28),
+        (name: "Comics", number: 29),
+        (name: "Gadgets", number: 30),
+        (name: "Japanese Anime & Manga", number: 31),
+        (name: "Cartoon & Animations", number: 32)
+    ]
+    
+    func loadTriviaQuestions(category: String? = nil) {
+        fetchingQuestions = true
+        Task {
+            await triviaModel.refresh(category: category)
+            fetchingQuestions = false
+        }
+    }
+    
+    func categoryName(for number: Int?) -> String? {
+        guard let number = number else { return nil }
+        return categories.first(where: { $0.number == number })?.name
+    }
+
     
     var body: some View {
-        VStack(alignment: .center) {
-            if !startQuiz && !showResults {
-                HStack {
-                    Button {
+        VStack{
+            if fetchingQuestions {
+                Text("Fetching...")
+                    .padding()
+            }
+            else if !startQuiz && !showResults {
+                HStack{
+                    Button{
                         dismiss()
                     } label: {
                         HStack {
                             Image(systemName: "arrow.left")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width:12, height: 12)
+                                .frame(width: 12, height: 12)
                                 .foregroundColor(Color.black)
                             
                             Text("Back")
@@ -45,11 +86,11 @@ struct StartView: View {
             }
             
             Spacer()
-                        
-            Text(selectedCategory)
+            
+            Text(categoryName(for: selectedCategoryNumber) ?? "Unknown Category")
                 .font(startQuiz ? .title2 : .title)
                 .bold()
-//                .padding(.top)
+                .padding(.top)
             
             Rectangle()
                 .frame(width: 275, height: 2)
@@ -57,26 +98,24 @@ struct StartView: View {
             
             if startQuiz {
                 QuestionPage(onNext: {
-                    //TODO: CHANGE THIS TO GO TO NEXT QUESTION
                     withAnimation(.bouncy(duration: 0.6)){
                         startQuiz = false
                         showResults = true
                     }
-                })
+                }, questions: triviaModel.questions ?? [], currScore: $currScore)
             } else if showResults {
                 ResultPage(onReplay: {
                     withAnimation(.bouncy(duration: 0.7)){
                         showResults = false
                     }
-                })
+                }, currScore: $currScore)
             } else {
-                Button {
-                    // TODO: GO TO FIRST QUESTION
-                    withAnimation(.bouncy(duration: 0.7)){
+                Button{
+                    withAnimation(.bouncy(duration: 0.7)) {
                         startQuiz = true
                     }
                 } label: {
-                    HStack {
+                    HStack{
                         Text("Play")
                             .font(.title3)
                             .fontWeight(.semibold)
@@ -84,25 +123,27 @@ struct StartView: View {
                         Image(systemName: "play.circle.fill")
                             .resizable()
                             .scaledToFit()
-                            .frame(width:20, height: 20)
+                            .frame(width: 20, height: 20)
                             .foregroundColor(Color.black)
                     }
                     .padding(.horizontal, 30)
                     .padding(.vertical, 10)
-                    
-                }.buttonStyle(.plain)
+                }
+                .buttonStyle(.plain)
                 .background(Color.gray.opacity(0.15))
                 .clipShape(.rect(cornerRadius: 10))
             }
             
             Spacer()
-            
         }.padding()
-        
-       
+        .onAppear {
+            loadTriviaQuestions(category: selectedCategoryNumber != nil ? String(selectedCategoryNumber!) : nil)
+        }
+        .onChange(of: selectedCategoryNumber, initial: false) { oldValue, newValue in
+            if let number = newValue {
+                let categoryString = String(number)
+                loadTriviaQuestions(category: categoryString)
+            }
+        }
     }
-}
-
-#Preview {
-    StartView()
 }

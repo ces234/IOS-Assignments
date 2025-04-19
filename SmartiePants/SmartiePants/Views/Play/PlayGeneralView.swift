@@ -15,12 +15,38 @@ enum Difficulty: String, CaseIterable, Identifiable {
 }
 
 struct PlayGeneralView: View {
-    /* TODO: Pull from data (or hard code values?) */
-    var allCategories = ["Entertainment: Books", "Science: Computers", "Celebrities", "Entertainment: Music", "Science and Nature", "Geography", "Animals", "Entertainment: TV", "Sports"]
+    
+    let categories = [
+        (name: "General Knowledge", number: 9),
+        (name: "Books", number: 10),
+        (name: "Film", number: 11),
+        (name: "Music", number: 12),
+        (name: "Musical Theater", number: 13),
+        (name: "Television", number: 14),
+        (name: "Video Games", number: 15),
+        (name: "Board Games", number: 16),
+        (name: "Science & Nature", number: 17),
+        (name: "Computers", number: 18),
+        (name: "Mathematics", number: 19),
+        (name: "Mythology", number: 20),
+        (name: "Sports", number: 21),
+        (name: "Geography", number: 22),
+        (name: "History", number: 23),
+        (name: "Politics", number: 24),
+        (name: "Art", number: 25),
+        (name: "Celebrities", number: 26),
+        (name: "Animals", number: 27),
+        (name: "Vehicles", number: 28),
+        (name: "Comics", number: 29),
+        (name: "Gadgets", number: 30),
+        (name: "Japanese Anime & Manga", number: 31),
+        (name: "Cartoon & Animations", number: 32)
+    ]
     
     @State var selectedDifficulty:Difficulty = .easy
     @State var isCategorySelected = false
-    
+    @State var selectedCategoryNumber: Int?
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -39,13 +65,15 @@ struct PlayGeneralView: View {
                         .padding(.bottom)
                     
                     VStack(spacing: 8) { 
-                        ForEach(allCategories, id: \.self) { category in
-                            //TODO: Formatting when navigating to Start page is weird
-                                CategoryPlayRow(category: category)
+                        ForEach(categories, id: \.number) { category in
+                            CategoryPlayRow(category: category.name)
                                 .onTapGesture {
-                                    isCategorySelected.toggle()
+                                    selectedCategoryNumber = category.number
+                                    print("selected category number: ", selectedCategoryNumber ?? 213)
+                                    isCategorySelected = true
                                 }
                         }
+
                     }
                     
                 }.padding()
@@ -53,7 +81,7 @@ struct PlayGeneralView: View {
             }
         }.padding()
         .fullScreenCover(isPresented: $isCategorySelected) {
-            StartView()
+            StartView(selectedCategoryNumber: $selectedCategoryNumber)
         }
     }
 }

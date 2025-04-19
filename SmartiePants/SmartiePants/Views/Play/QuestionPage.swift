@@ -8,26 +8,23 @@
 import SwiftUI
 
 struct QuestionPage: View {
-    @State var onNext:() -> Void
-    @State var category = "Entertainment: Books"
-    
-    //TODO: May have to move this into StartView() to know when to go to results page
+    @State var onNext: () -> Void
+    @State var questions: [Question]
+    @State private var currentIndex = 0
     @State var answerSelected = false
     @State private var isTimerFinished = false
     @State private var timerRunning = true
-    @State private var currScore = 0
-    
-    /* TODO: Repalce this with models? */
-    @State private var currQuestionIndex = 1
-    @State private var currQuestion = "In which classic novel is there a character named Homer Simpson?"
-    @State private var answers = ["Catch-22", "The Day of the Locust", "Of Mice and Men", "A Separate Peace"]
-    @State private var correctAnswer = "The Day of the Locust"
-    
-//    init(onNext:()->Void) {
-//        _onNext = State(wrappedValue: onNext)
-//    }
-//    
+    @Binding var currScore: Int
+    @State private var shuffledAnswers: [String] = []
+
+
+
     var body: some View {
+        
+        let question = questions[currentIndex]
+        let allAnswers = shuffledAnswers
+
+        
         VStack {
             HStack {
                 HStack {
@@ -52,15 +49,21 @@ struct QuestionPage: View {
                 CountdownTimerView(totalTime: 10, isTimerFinished: $isTimerFinished, timerRunning: $timerRunning)
             }.padding()
         }
+        .onAppear {
+            let firstQuestion = questions[currentIndex]
+            shuffledAnswers = (firstQuestion.incorrectAnswers + [firstQuestion.correctAnswer]).shuffled()
+        }
+
         
         VStack(alignment: .leading) {
-            Text("Question \(currQuestionIndex)")
+            Text("Question \(currentIndex + 1)")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.horizontal)
             
+            
             HStack {
-                Text("\(currQuestion)")
+                Text("\(question.question)")
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
@@ -72,28 +75,40 @@ struct QuestionPage: View {
             .clipShape(.rect(cornerRadius: 10))
             .padding(.horizontal)
             
-            VStack {
-                ForEach(answers, id: \.self) { answer in
-                    Button {
+            VStack{
+                ForEach(allAnswers, id: \.self) { answer in
+                    Button{
                         answerSelected = true
                         timerRunning = false
-                        /* TODO: ADD POINTS SYSTEM HERE - UPDATE SCORE */
+                        
+                        if answer == question.correctAnswer {
+                            currScore += 1
+                        }
                     } label: {
-                        AnswerRow(answerText: answer, isCorrect: answer == correctAnswer, showAnswer: isTimerFinished || answerSelected)
-                    }.buttonStyle(.plain)
-                        .disabled(isTimerFinished || answerSelected)
+                        AnswerRow(answerText: answer, isCorrect: answer == question.correctAnswer, showAnswer: isTimerFinished || answerSelected)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(isTimerFinished || answerSelected)
                 }
             }.padding(.horizontal)
-            
-           
+
         }
         Spacer()
         
         if answerSelected || isTimerFinished {
-            HStack {
+            HStack{
                 Spacer()
-                Button {
-                    onNext()
+                Button{
+                    if currentIndex + 1 < questions.count {
+                        currentIndex += 1
+                        answerSelected = false
+                        isTimerFinished = false
+                        timerRunning = true
+                        let nextQuestion = questions[currentIndex]
+                        shuffledAnswers = (nextQuestion.incorrectAnswers + [nextQuestion.correctAnswer]).shuffled()
+                    } else {
+                        onNext()
+                    }
                 } label: {
                     HStack {
                         Text("Next")
@@ -102,7 +117,7 @@ struct QuestionPage: View {
                         Image(systemName: "arrow.right")
                             .resizable()
                             .scaledToFit()
-                            .frame(width:16, height: 16)
+                            .frame(width: 16, height: 16)
                             .foregroundColor(Color.black)
                     }
                     .padding(.horizontal, 20)
@@ -111,13 +126,7 @@ struct QuestionPage: View {
                 }.buttonStyle(.plain)
                     .padding(.horizontal)
             }.padding()
-        }        
-           
-        
-       
+        }
     }
-}
-
-#Preview {    
-    QuestionPage(onNext: {})
+        
 }

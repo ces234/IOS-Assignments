@@ -7,6 +7,8 @@ struct HomePageView: View {
     var usersTopCategories = ["Sports", "Entertainment: Music", "Animals"]
     
     @State var isCategorySelected = false
+    @State var selectedCategoryNumber: Int?
+
 
     var body: some View {
         NavigationStack {
@@ -132,7 +134,7 @@ struct HomePageView: View {
             }
         }.padding()
         .fullScreenCover(isPresented: $isCategorySelected) {
-            StartView()
+            StartView(selectedCategoryNumber: $selectedCategoryNumber)
         }
     }
 }

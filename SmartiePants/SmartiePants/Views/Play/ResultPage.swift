@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ResultPage: View {
     let onReplay: () -> Void
+    @Binding var currScore: Int
+
     
     var body: some View {
         VStack {
@@ -17,7 +19,7 @@ struct ResultPage: View {
                 .bold()
                 .padding(.bottom)
             
-            Text("5 / 10 Answers Correct")
+            Text("\(currScore) / 10 Answers Correct")
                 .padding(.bottom, 5)
                 .font(.title3)
                 .fontWeight(.medium)
@@ -68,7 +70,7 @@ struct ResultPage: View {
         }
     }
 }
-
-#Preview {
-    ResultPage(onReplay: {})
-}
+//
+//#Preview {
+//    ResultPage(onReplay: {}, currScore: 5)
+//}
