@@ -14,7 +14,7 @@ class TriviaModel: ObservableObject {
     @Published var questions: [Question]?
     
     func refresh(category: String? = nil, difficulty: String? = nil) async {
-        self.triviaResponse = await getTriviaDetails(category: category)
+        self.triviaResponse = await getTriviaDetails(category: category, difficulty: difficulty)
         self.questions = triviaResponse?.results
     }
     
@@ -23,10 +23,15 @@ class TriviaModel: ObservableObject {
         var urlString = "https://opentdb.com/api.php?amount=10"
         if let category = category{
             urlString += "&category=\(category)"
+            print("category: \(category)")
+
         }
         if let difficulty = difficulty{
             urlString += "&difficulty=\(difficulty)"
+            print("difficult: \(difficulty)")
         }
+        
+        print("url string: \(urlString)")
                 
         let session = URLSession(configuration: .default)
         if let url = URL(string: urlString) {

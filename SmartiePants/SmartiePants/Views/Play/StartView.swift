@@ -1,12 +1,16 @@
 import SwiftUI
 
+
+
 struct StartView: View {
     
     @Environment(\.dismiss) var dismiss
     @State var triviaModel = TriviaModel()
     @State var fetchingQuestions = false
     @Binding var selectedCategoryNumber: Int? // Use Binding to receive the value
+    @Binding var selectedDifficulty:Difficulty
     
+
     @State var startQuiz = false
     @State var showResults = false
     @State var currScore = 0
@@ -41,7 +45,7 @@ struct StartView: View {
     func loadTriviaQuestions(category: String? = nil) {
         fetchingQuestions = true
         Task {
-            await triviaModel.refresh(category: category)
+            await triviaModel.refresh(category: category, difficulty: selectedDifficulty.rawValue)
             fetchingQuestions = false
         }
     }
@@ -104,11 +108,15 @@ struct StartView: View {
                     }
                 }, questions: triviaModel.questions ?? [], currScore: $currScore)
             } else if showResults {
-                ResultPage(onReplay: {
-                    withAnimation(.bouncy(duration: 0.7)){
-                        showResults = false
-                    }
-                }, currScore: $currScore)
+                ResultPage(
+                    onReplay: {
+                        withAnimation(.bouncy(duration: 0.7)) {
+                            showResults = false
+                        }
+                    },
+                    currScore: $currScore,
+                    difficulty: selectedDifficulty
+                )
             } else {
                 Button{
                     withAnimation(.bouncy(duration: 0.7)) {

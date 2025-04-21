@@ -81,7 +81,7 @@ struct PlayGeneralView: View {
             }
         }.padding()
         .fullScreenCover(isPresented: $isCategorySelected) {
-            StartView(selectedCategoryNumber: $selectedCategoryNumber)
+            StartView(selectedCategoryNumber: $selectedCategoryNumber, selectedDifficulty: $selectedDifficulty)
         }
     }
 }

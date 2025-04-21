@@ -10,6 +10,7 @@ struct HomePageView: View {
 
     @State var isCategorySelected = false
     @State var selectedCategoryNumber: Int?
+    @State var selectedDifficulty: Difficulty = .easy
 
     var body: some View {
         NavigationStack {
@@ -140,11 +141,14 @@ struct HomePageView: View {
             }
         }.padding()
         .fullScreenCover(isPresented: $isCategorySelected) {
-            StartView(selectedCategoryNumber: $selectedCategoryNumber)
+            StartView(selectedCategoryNumber: $selectedCategoryNumber, selectedDifficulty: $selectedDifficulty)
         }
     }
 }
 
 #Preview {
-    HomePageView()
+    let mockSession = SessionManager()
+    mockSession.currentUser = User(firstName: "Caroline", lastName: "Caroline", username:"Schafer", password:"1234", dailyPoints:6000)
+    return HomePageView()
+        .environmentObject(mockSession)
 }
