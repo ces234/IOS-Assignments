@@ -34,7 +34,7 @@ struct LandingPageView: View {
             }
 
             
-            NavigationLink(destination: BottomBarView()) {
+            NavigationLink(destination: LoginView()) {
                 Text("Log in")
             }
             .font(.headline)

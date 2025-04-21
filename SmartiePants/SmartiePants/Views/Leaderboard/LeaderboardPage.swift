@@ -32,7 +32,7 @@ enum PointsCategory : String, CaseIterable, Identifiable {
 }
 
 struct LeaderboardPage: View {
-    /* TODO: Pull from data - need to sort by points */
+    /* TODO: Delete */
     var stats = [
         UserStats(user: "Caroline", points: 50000),
         UserStats(user: "Amala", points: 600000),
@@ -41,8 +41,8 @@ struct LeaderboardPage: View {
         UserStats(user: "Zoe", points: 4000)
     ].sorted(by: {$0.points > $1.points})
     
-    @Query(sort: \User.dailyPoints, order: .reverse) var users: [User]
     
+    @Query(sort: \User.dailyPoints, order: .reverse) var users: [User]
     
     @State var pointsSorter:PointsCategory = .totalPoints
     
@@ -61,6 +61,7 @@ struct LeaderboardPage: View {
                 }
                 .foregroundStyle(Color.white)
                 .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
+                
             }
             
             

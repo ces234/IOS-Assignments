@@ -16,14 +16,14 @@ struct SignupView: View {
     
     @Environment(\.modelContext) var modelContext
     
+    @Query var users: [User]
+    
     func handleSignUp() {
-        // Create a new instance of the User model with the entered details
+        
         let newUser = User(firstName: firstName, lastName: lastName, username: username, password: password)
         
-        // Insert the new user object into the model context
         modelContext.insert(newUser)
         
-        // Save the context to persist the new user data
         do {
             try modelContext.save()
             print("User saved successfully!")
@@ -33,6 +33,11 @@ struct SignupView: View {
         
     }
     var body: some View {
+        
+        ForEach(users) {user in
+            Text(user.username)
+        }
+        
         NavigationStack {
             
             Spacer()
@@ -74,7 +79,7 @@ struct SignupView: View {
                     .cornerRadius(8)
                     .textFieldStyle(PlainTextFieldStyle())
                 
-                TextField("Password", text: $password)
+                SecureField("Password", text: $password)
                     .padding()
                     .frame(width: 330, height: 40)
                     .background(Color.gray.opacity(0.2))
@@ -84,7 +89,7 @@ struct SignupView: View {
                 HStack{
                     Spacer()
                     Button("Sign up") {
-                        
+                        handleSignUp()
                     }
                         .font(.headline)
                         .padding()

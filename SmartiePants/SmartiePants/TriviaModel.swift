@@ -16,7 +16,6 @@ class TriviaModel: ObservableObject {
     func refresh(category: String? = nil, difficulty: String? = nil) async {
         self.triviaResponse = await getTriviaDetails(category: category)
         self.questions = triviaResponse?.results
-        //print("Questions: \(questions)")
     }
     
     private func getTriviaDetails(category: String? = nil, difficulty: String? = nil) async -> TriviaResponse? {

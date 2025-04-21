@@ -6,9 +6,10 @@ struct HomePageView: View {
     var recentCategories = ["Entertainment", "Science: Computers", "Celebrities"]
     var usersTopCategories = ["Sports", "Entertainment: Music", "Animals"]
     
+    @EnvironmentObject var session: SessionManager
+
     @State var isCategorySelected = false
     @State var selectedCategoryNumber: Int?
-
 
     var body: some View {
         NavigationStack {
@@ -18,6 +19,11 @@ struct HomePageView: View {
                     VStack(alignment: .leading) {
                         Text("Welcome back,")
                             .font(.title2)
+                        if let currUser = session.currentUser {
+                            Text("Hello, \(currUser.firstName)! You have \(currUser.dailyPoints) points.")
+                                .font(.title)
+                                .bold()
+                        }
                         Text("Caroline") /* TODO: REPLACE WITH USER'S NAME PASSED IN */
                             .font(.title)
                             .bold()

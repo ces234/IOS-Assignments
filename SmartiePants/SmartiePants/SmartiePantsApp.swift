@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct SmartiePantsApp: App {
+    
+    @StateObject private var session = SessionManager()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView() //TODO: LandingPageView()?
+            .environmentObject(session)
         }
         .modelContainer(for: User.self)
     }
