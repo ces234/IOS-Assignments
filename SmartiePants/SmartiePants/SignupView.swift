@@ -14,24 +14,25 @@ struct SignupView: View {
     @State var username = ""
     @State var password = ""
     
+    @State private var shouldNavigate = false
+    
     @Environment(\.modelContext) var modelContext
     
     @Query var users: [User]
     
     func handleSignUp() {
-        
         let newUser = User(firstName: firstName, lastName: lastName, username: username, password: password)
-        
         modelContext.insert(newUser)
         
         do {
             try modelContext.save()
             print("User saved successfully!")
+            shouldNavigate = true
         } catch {
             print("Error saving user: \(error)")
         }
-        
     }
+
     var body: some View {
         
         NavigationStack {
@@ -84,6 +85,9 @@ struct SignupView: View {
                 
                 HStack{
                     Spacer()
+                    NavigationLink(destination: LandingPageView(), isActive: $shouldNavigate) {
+                        EmptyView()
+                    }
                     Button("Sign up") {
                         handleSignUp()
                     }

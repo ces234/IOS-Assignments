@@ -11,4 +11,8 @@ import SwiftData
 @MainActor
 final class SessionManager: ObservableObject {
     @Published var currentUser: User? = nil
+    
+    func logout() {
+        currentUser = nil
+    }
 }

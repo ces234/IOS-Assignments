@@ -11,6 +11,8 @@ struct HomePageView: View {
     
     @Query var users: [User]
     
+    @State private var shouldNavigate = false
+    
     var userRank: Int? {
         guard let currentUser = session.currentUser else { return nil }
         let sortedUsers = users.sorted { $0.dailyPoints > $1.dailyPoints }
@@ -215,10 +217,36 @@ struct HomePageView: View {
                             }
                             .padding(.horizontal)
                             
+                            VStack(alignment: .leading) {
+                                Text("Settings")
+                                    .font(.poppins(fontStyle: .title2, fontWeight: .bold))
+                                    .foregroundStyle(.darkBlue)
+                                
+                                Button(action: {
+                                    session.logout()
+                                    shouldNavigate = true
+                                }) {
+                                    HStack {
+                                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                                        Text("Log Out")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
+                                    }
+                                    .foregroundColor(.red)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(.ultraThinMaterial)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                }
+                                NavigationLink(destination: LandingPageView(), isActive: $shouldNavigate) {
+                                    EmptyView()
+                                }
+                            }.padding(.horizontal)
+                            
                             Spacer()
                         }
                     }
                 }
+                
                 .fullScreenCover(isPresented: $isCategorySelected) {
                     StartView(
                         selectedCategoryNumber: $selectedCategoryNumber,
