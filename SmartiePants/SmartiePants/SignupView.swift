@@ -34,10 +34,6 @@ struct SignupView: View {
     }
     var body: some View {
         
-        ForEach(users) {user in
-            Text(user.username)
-        }
-        
         NavigationStack {
             
             Spacer()
