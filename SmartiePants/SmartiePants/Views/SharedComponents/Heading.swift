@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct Heading: View {
-    var headingText = ""
+    var headingText = "Test"
     var body: some View {
         VStack(alignment: .center) {
             Text(headingText)
-                .font(.title2)
-                .bold()
+                .font(.poppins(fontStyle: .title2, fontWeight: .bold))
+                .foregroundStyle(.lavender)
+                .padding(.bottom, -2)
             
             Rectangle()
                 .frame(width: 275, height: 2)

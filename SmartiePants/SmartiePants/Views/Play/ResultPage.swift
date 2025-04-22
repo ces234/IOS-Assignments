@@ -32,18 +32,17 @@ struct ResultPage: View {
     var body: some View {
         VStack {
             Text("Results")
+                .font(.poppins(fontStyle: .title2, fontWeight: .bold))
                 .font(.title)
-                .bold()
+                .foregroundStyle(.darkBlue)
                 .padding(.bottom)
 
             Text("\(currScore) / 10 Answers Correct")
                 .padding(.bottom, 5)
-                .font(.title3)
-                .fontWeight(.medium)
+                .font(.poppins(fontStyle: .title3, fontWeight: .medium))
 
             Text("Points Earned: \(totalPoints)")
-                .font(.title3)
-                .fontWeight(.medium)
+                .font(.poppins(fontStyle: .title3, fontWeight: .medium))
 
             HStack {
                 Button {
@@ -51,8 +50,7 @@ struct ResultPage: View {
                 } label: {
                     HStack {
                         Text("Replay")
-                            .font(.callout)
-                            .fontWeight(.semibold)
+                            .font(.poppins(fontStyle: .callout, fontWeight: .semibold))
                             .foregroundStyle(Color.white)
 
                         Image(systemName: "memories")
@@ -65,7 +63,7 @@ struct ResultPage: View {
                     .padding(.vertical, 10)
                 }
                 .buttonStyle(.plain)
-                .background(Color(red: 0.4, green: 0.4, blue: 0.4))
+                .background(.darkBlue)
                 .clipShape(.rect(cornerRadius: 10))
 
                 Button {
@@ -73,14 +71,13 @@ struct ResultPage: View {
                 } label: {
                     HStack {
                         Text("Finish")
-                            .font(.callout)
-                            .fontWeight(.medium)
+                            .font(.poppins(fontStyle: .callout, fontWeight: .medium))
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
                 }
                 .buttonStyle(.plain)
-                .background(Color.gray.opacity(0.15))
+                .background(.lightGray)
                 .clipShape(.rect(cornerRadius: 10))
             }
             .padding(.top)

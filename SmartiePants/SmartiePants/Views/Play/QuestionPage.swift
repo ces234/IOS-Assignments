@@ -17,31 +17,27 @@ struct QuestionPage: View {
     @Binding var currScore: Int
     @State private var shuffledAnswers: [String] = []
 
-
-
     var body: some View {
         
         let question = questions[currentIndex]
         let allAnswers = shuffledAnswers
 
-        
         VStack {
             HStack {
                 HStack {
                     Text("Score")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
+                        .foregroundStyle(.white)
                         .padding()
                 }
-                .background(Color.gray.opacity(0.15))
+                .background(.lavender)
                 .clipShape(.rect(cornerRadius: 10))
                 HStack {
                     Text("\(currScore)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                        .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
                         .padding()
                 }
-                .background(Color.gray.opacity(0.15))
+                .background(.lightGray)
                 .clipShape(.rect(cornerRadius: 10))
                 
                 Spacer()
@@ -57,21 +53,22 @@ struct QuestionPage: View {
         
         VStack(alignment: .leading) {
             Text("Question \(currentIndex + 1)")
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.poppins(fontStyle: .title2, fontWeight: .bold))
                 .padding(.horizontal)
             
             
             HStack {
                 Text("\(question.question)")
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                    .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
                     .multilineTextAlignment(.center)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding()
+                    
             }
-            .background(Color.gray)
+            .frame(maxWidth: .infinity)
+            .background(.darkBlue)
             .clipShape(.rect(cornerRadius: 10))
             .padding(.horizontal)
             
@@ -112,13 +109,15 @@ struct QuestionPage: View {
                 } label: {
                     HStack {
                         Text("Next")
+                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
+                            .foregroundStyle(.darkBlue)
                             .padding(.vertical)
                         
                         Image(systemName: "arrow.right")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16, height: 16)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(.darkBlue)
                     }
                     .padding(.horizontal, 20)
                     .background(Color.gray.opacity(0.15))
@@ -129,4 +128,21 @@ struct QuestionPage: View {
         }
     }
         
+}
+
+#Preview {
+    @Previewable @State var score = 100
+    QuestionPage(onNext: {}, questions: [Question](), currScore: $score)
+        .environmentObject({
+            let mockSession = SessionManager()
+            mockSession.currentUser = User(
+                firstName: "Caroline",
+                lastName: "Caroline",
+                username: "Schafer",
+                password: "1234"
+            )
+            mockSession.currentUser?.categoryPlayCounts = ["Sports": 10, "Geography": 20, "Entertaiment: Books": 15]
+            mockSession.currentUser?.recentCategories = ["Sports", "Science & Nature", "Geography"]
+            return mockSession
+        }())
 }

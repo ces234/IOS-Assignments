@@ -123,6 +123,7 @@ struct StartView: View {
             if fetchingQuestions {
                 Text("Fetching...")
                     .padding()
+                    .font(.poppins(fontStyle: .body, fontWeight: .regular))
             }
             else if !startQuiz && !showResults {
                 HStack{
@@ -137,12 +138,12 @@ struct StartView: View {
                                 .foregroundColor(Color.black)
                             
                             Text("Back")
-                                .font(.footnote)
+                                .font(.poppins(fontStyle: .footnote, fontWeight: .regular))
                                 .padding(.leading, 5)
                                 .padding(.vertical, 10)
                         }
                         .padding(.horizontal, 20)
-                        .background(Color.gray.opacity(0.15))
+                        .background(.lightGray)
                         .clipShape(.rect(cornerRadius: 10))
                     }.buttonStyle(.plain)
                         .padding(.horizontal)
@@ -154,8 +155,7 @@ struct StartView: View {
             Spacer()
             
             Text(categoryName(for: selectedCategoryNumber) ?? "Unknown Category")
-                .font(startQuiz ? .title2 : .title)
-                .bold()
+                .font(.poppins(fontStyle: (startQuiz ? .title2 : .title), fontWeight: .bold))
                 .padding(.top)
             
             Rectangle()
@@ -190,20 +190,20 @@ struct StartView: View {
                 } label: {
                     HStack{
                         Text("Play")
-                            .font(.title3)
-                            .fontWeight(.semibold)
+                            .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
+                            .foregroundStyle(.white)
                         
                         Image(systemName: "play.circle.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(.white)
                     }
                     .padding(.horizontal, 30)
                     .padding(.vertical, 10)
                 }
                 .buttonStyle(.plain)
-                .background(Color.gray.opacity(0.15))
+                .background(.darkBlue)
                 .clipShape(.rect(cornerRadius: 10))
             }
             

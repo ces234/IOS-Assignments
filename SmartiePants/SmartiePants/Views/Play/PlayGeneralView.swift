@@ -54,14 +54,19 @@ struct PlayGeneralView: View {
                 
                 VStack(alignment: .leading) {
                     Text("All Categories")
-                        .font(.title)
-                        .bold()
+                        .font(.poppins(fontStyle: .title, fontWeight: .bold))
+                        .foregroundStyle(.darkBlue)
+                        .padding(.top, -10)
                     
                     Picker("Difficulty", selection: $selectedDifficulty) {
                         ForEach(Difficulty.allCases) { difficulty in
                             Text(difficulty.rawValue.capitalized)
+                                .font(.poppins(fontStyle: .callout, fontWeight: .medium))
+                                .foregroundStyle(.darkBlue)
                         }
-                    }.pickerStyle(.palette)
+                    }
+                    .font(.poppins(fontStyle: .body, fontWeight: .medium))
+                    .pickerStyle(.palette)
                         .padding(.bottom)
                     
                     VStack(spacing: 8) { 

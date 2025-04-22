@@ -25,20 +25,19 @@ struct CountdownTimerView: View {
                 Circle()
                     .stroke(lineWidth: 6)
                     .opacity(0.3)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.lightGray)
 
                 Circle()
                     .trim(from: 0, to: progress)
                     .stroke(
-                        remainingTime < 4 ? Color.red : Color.gray,
+                        remainingTime < 4 ? Color.red : .lavender,
                         style: StrokeStyle(lineWidth: 6, lineCap: .round)
                     )
                     .rotationEffect(.degrees(-90))
                     .animation(.linear(duration: 0.01), value: progress)
 
                 Text(String(format: "%.f", max(0, remainingTime)))
-                    .font(.title2)
-                    .bold()
+                    .font(.poppins(fontStyle: .title2, fontWeight: .semibold))
                     .foregroundColor(remainingTime < 4 ? Color.red : Color.black)
             }
             .frame(width: 50, height: 50)

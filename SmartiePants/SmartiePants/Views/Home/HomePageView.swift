@@ -101,7 +101,7 @@ struct HomePageView: View {
                                                     .foregroundColor(.black)
                                             } else {
                                                 Text("Rank unavailable")
-                                                    .font(.poppins(fontStyle: .body, fontWeight: .semibold))
+                                                    .font(.poppins(fontStyle: .body, fontWeight: .regular))
                                                     .foregroundColor(.black)
                                             }
                                         }
@@ -151,7 +151,7 @@ struct HomePageView: View {
                                             .font(.poppins(fontStyle: .body, fontWeight: .medium))
                                     }
                                     HStack {
-                                        Text("Daily Points Record")
+                                        Text("Daily Points Record:")
                                             .font(.poppins(fontStyle: .body, fontWeight: .semibold))
                                         Text("\(currUser.dailyPoints)")
                                             .font(.poppins(fontStyle: .body, fontWeight: .medium))
@@ -172,12 +172,14 @@ struct HomePageView: View {
                                                 
                                                 if currUser.topCategories.count == 0 {
                                                     Text("No categories played yet!")
+                                                        .font(.poppins(fontStyle: .body, fontWeight: .regular))
                                                 }
                                             }
                                             .padding(.horizontal)
                                         }
                                     }
                                 }
+                                .padding(.top, -10)
                                 .listStyle(.inset)
                                 .scrollDisabled(true)
                                 .frame(height: 200)
@@ -193,6 +195,7 @@ struct HomePageView: View {
                                     
                                     if currUser.topCategories.count == 0 {
                                         Text("No categories played yet!")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .regular))
                                     }
                                     
                                     ForEach(currUser.recentCategories, id: \.self) { category in

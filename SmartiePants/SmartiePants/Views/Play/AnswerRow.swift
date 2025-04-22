@@ -18,7 +18,7 @@ struct AnswerRow: View {
         } else if !isCorrect && showAnswer {
             return Color.red
         } else {
-            return Color.gray.opacity(0)
+            return .lightGray
         }
     }
     
@@ -26,19 +26,20 @@ struct AnswerRow: View {
         VStack {
             HStack {
                 Text(answerText)
-                    .font(.body)
+                    .font(.poppins(fontStyle: .body, fontWeight: .regular))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
                                 
             }.padding(.vertical, 20.0)
             
         }
-        
         .frame(maxWidth: .infinity)
         .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(borderColor(), lineWidth: 3)
-            )
-        .background(Color.gray.opacity(0.15))
-       
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(borderColor(), lineWidth: 3)
+        )
+        .background(.lightGray)       
     }
 }
 
