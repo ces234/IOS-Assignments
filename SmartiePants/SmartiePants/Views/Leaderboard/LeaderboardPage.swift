@@ -33,32 +33,33 @@ struct LeaderboardPage: View {
         ScrollView {
             Heading(headingText: "Daily Leaderboard")
             
+            /* TODO: Figure out how to style this */
             VStack(alignment: .leading, spacing: 15) {
-//                Menu {
-//                    Picker(selection: $pointsSorter) {
-//                        ForEach(PointsCategory.allCases) { category in
-//                            Text(category.displayName)
-//                                .font(.poppins(fontStyle: .body, fontWeight: .regular))
-//                                .background(RoundedRectangle(cornerRadius: 16).fill(.lightGray))
-//                        }
-//                    } label: {}
-//                } label: {
-//                    HStack {
-//                        Text("\(pointsSorter.displayName)")
-//                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
-//                            .foregroundStyle(.white)
-//                            .padding(.trailing, 5)
-//                            
-//                        Image(systemName: "chevron.down")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width:15, height: 15)
-//                            .foregroundColor(.white)
-//                    }
-//                    .padding(.vertical, 10)
-//                    .padding(.horizontal, 20)
-//                    .background(RoundedRectangle(cornerRadius: 8).fill(.darkBlue))
-//                }
+                Menu {
+                    Picker(selection: $pointsSorter) {
+                        ForEach(PointsCategory.allCases) { category in
+                            Text(category.displayName)
+                                .font(.poppins(fontStyle: .body, fontWeight: .regular))
+                                .background(RoundedRectangle(cornerRadius: 16).fill(.lightGray))
+                        }
+                    } label: {}
+                } label: {
+                    HStack {
+                        Text("\(pointsSorter.displayName)")
+                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
+                            .foregroundStyle(.white)
+                            .padding(.trailing, 5)
+                            
+                        Image(systemName: "chevron.down")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:15, height: 15)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(RoundedRectangle(cornerRadius: 8).fill(.darkBlue))
+                }
 //                .padding(.vertical, 10)
                 
                 ForEach(Array(users.enumerated()), id: \.element.id) { index, user in

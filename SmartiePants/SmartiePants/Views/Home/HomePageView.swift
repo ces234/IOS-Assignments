@@ -136,7 +136,6 @@ struct HomePageView: View {
                                 .padding(.top, -15)
                                 .padding()
                             }
-                            .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 3)
                             
                             VStack(alignment: .leading) {
                                 Text("History")
@@ -215,48 +214,6 @@ struct HomePageView: View {
                             }
                             .padding(.horizontal)
                             
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("Settings")
-                                    .font(.poppins(fontStyle: .title2, fontWeight: .bold))
-                                    .foregroundStyle(.darkBlue)
-                                
-                                NavigationLink(destination: LandingPageView()) {
-                                    HStack {
-                                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                                                .foregroundColor(.red)
-                                                .frame(width: 24, height: 24)
-                                            
-                                            Text("Log Out")
-                                                .font(.poppins(fontStyle: .body, fontWeight: .semibold))
-                                                .foregroundColor(.red)
-                                        }
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .background(.ultraThinMaterial)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                }
-//                                Button(action: {
-//                                    session.logout()
-//                                }) {
-//                                    HStack {
-//                                        Image(systemName: "rectangle.portrait.and.arrow.right")
-//                                            .foregroundColor(.red)
-//                                            .frame(width: 24, height: 24)
-//                                        
-//                                        Text("Log Out")
-//                                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
-//                                            .foregroundColor(.red)
-//                                    }
-//                                    .padding()
-//                                    .frame(maxWidth: .infinity)
-//                                    .background(.ultraThinMaterial)
-//                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-//                                }
-                            }
-                            .padding(.horizontal)
-                            .padding(.top, 20)
-
-                            
                             Spacer()
                         }
                     }
@@ -270,7 +227,7 @@ struct HomePageView: View {
                 .padding()
             } else {
                 Text("Loading...")
-                    .font(.poppins(fontStyle: .title, fontWeight: .semibold))
+                    .font(.title)
                     .padding()
             }
         }

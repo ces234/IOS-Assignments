@@ -7,77 +7,57 @@
 
 import SwiftUI
 
-enum Tab {
-    case home
-    case play
-    case leaderboard
-}
-
 struct CustomTabBar: View {
-    @State private var selectedTab: Tab = .home
-
     var body: some View {
-        VStack(spacing: 0) {
-            // Show selected content
-            Group {
-                switch selectedTab {
-                case .home:
-                    HomePageView()
-                case .play:
-                    PlayGeneralView()
-                case .leaderboard:
-                    LeaderboardPage()
+        HStack(alignment: .center) {
+            Spacer()
+            Button {
+                
+            } label: {
+                VStack (alignment: .center, spacing: 4) {
+                    Image(systemName: "house.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:32, height: 32)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            // Custom oval tab bar
-            HStack {
-                Spacer()
-                tabBarButton(image: "house.fill", tab: .home)
-                Spacer()
-                Spacer()
-                tabBarButton(image: "play.circle.fill", tab: .play)
-                Spacer()
-                Spacer()
-                tabBarButton(image: "chart.bar.xaxis", tab: .leaderboard)
-                Spacer()
+            .tint(Color.secondary)
+            
+            Spacer()
+            
+            Button {
+                
+            } label: {
+                VStack (alignment: .center, spacing: 4) {
+                    Image(systemName: "play.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:32, height: 32)
+                }
             }
-            .padding()
-            .background(Color.slightLightGray)
-//            .clipShape(Capsule())
-//            .padding(.horizontal, 20)
-//            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+            .tint(Color.primary)
+            
+            Spacer()
+            
+            Button {
+                
+            } label: {
+                VStack (alignment: .center, spacing: 4) {
+                    Image(systemName: "chart.bar.xaxis")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:32, height: 32)
+                }
+            }
+            .tint(Color.secondary)
+            
+            Spacer()
         }
-//        .edgesIgnoringSafeArea(.bottom)
-//        .padding(.bottom, 1)
-    }
-
-    @ViewBuilder
-    private func tabBarButton(image: String, tab: Tab) -> some View {
-        Button(action: {
-            selectedTab = tab
-        }) {
-            Image(systemName: image)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 36, height: 36) // bigger icons
-                .foregroundColor(selectedTab == tab ? .darkBlue : Color.gray.opacity(0.55))
-        }
+        .frame(height: 82)
+        
     }
 }
-
 
 #Preview {
     CustomTabBar()
-        .environmentObject({
-            let mockSession = SessionManager()
-            mockSession.currentUser = User(
-                firstName: "Caroline",
-                lastName: "Caroline",
-                username: "Schafer",
-                password: "1234"
-            )
-            return mockSession
-        }())
 }

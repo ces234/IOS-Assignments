@@ -58,7 +58,6 @@ struct LandingPageView: View {
             
             
         }
-        .navigationBarBackButtonHidden(true)
         .padding()
     }
 }

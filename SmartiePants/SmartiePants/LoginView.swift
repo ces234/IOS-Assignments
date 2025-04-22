@@ -61,7 +61,7 @@ struct LoginView: View {
                     
                     HStack {
                         Spacer()
-                        NavigationLink(destination: CustomTabBar()) {
+                        NavigationLink(destination: BottomBarView()) {
                             
                         }
                         Button("Log In") {
@@ -86,7 +86,7 @@ struct LoginView: View {
             .navigationDestination(for: Destination.self) { dest in
                 switch dest {
                 case .bottomBar:
-                    CustomTabBar()
+                    BottomBarView()
                         .environmentObject(session)   // pass the session
                 }
             }
