@@ -1,10 +1,13 @@
 import SwiftUI
-
+import SwiftData
 
 
 struct StartView: View {
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
+    @EnvironmentObject var session: SessionManager
+    
     @State var triviaModel = TriviaModel()
     @State var fetchingQuestions = false
     @Binding var selectedCategoryNumber: Int? // Use Binding to receive the value
@@ -54,8 +57,26 @@ struct StartView: View {
         guard let number = number else { return nil }
         return categories.first(where: { $0.number == number })?.name
     }
-
     
+    func updateUserScore() {
+        guard let user = session.currentUser else { return }
+
+        user.dailyPoints += currScore
+
+        if let number = selectedCategoryNumber,
+           let category = categoryName(for: number) {
+
+            user.categoryPlayCounts[category, default: 0] += 1
+
+            user.recentCategories.removeAll(where: { $0 == category })
+            user.recentCategories.insert(category, at: 0)
+            if user.recentCategories.count > 5 {
+                user.recentCategories = Array(user.recentCategories.prefix(5))
+            }
+        }
+
+        try? modelContext.save()
+    }
     var body: some View {
         VStack{
             if fetchingQuestions {
@@ -117,6 +138,9 @@ struct StartView: View {
                     currScore: $currScore,
                     difficulty: selectedDifficulty
                 )
+                .onAppear {
+                       updateUserScore()
+                   }
             } else {
                 Button{
                     withAnimation(.bouncy(duration: 0.7)) {

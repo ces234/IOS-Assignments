@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var session: SessionManager
+
     var body: some View {
-        NavigationStack {
-            
+        if session.currentUser != nil {
+            BottomBarView()
+        } else {
             LandingPageView()
-            
-            
         }
-        .padding()
     }
 }
 

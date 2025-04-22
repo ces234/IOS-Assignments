@@ -10,7 +10,7 @@ struct LoginView: View {
     @State private var password = ""
     
     @Environment(\.modelContext) var modelContext
-    @EnvironmentObject var session: SessionManager    // <<— grab the session
+    @EnvironmentObject var session: SessionManager
     
     @Query var users: [User]
     @State private var path = NavigationPath()
@@ -45,6 +45,9 @@ struct LoginView: View {
                     
                     HStack {
                         Spacer()
+                        NavigationLink(destination: BottomBarView()) {
+                            
+                        }
                         Button("Log In") {
                             handleLogin()
                         }

@@ -18,8 +18,10 @@ final class User {
     var password: String
     var dailyPoints: Int = 0
     var dailyStreak: Int = 0
+    var categoryPlayCounts: [String: Int] = [:]
+    var recentCategories: [String] = []
 
-    init(firstName: String, lastName: String, username: String, password: String, dailyPoints: Int = 0, dailyStreak: Int = 0) {
+    init(firstName: String, lastName: String, username: String, password: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
