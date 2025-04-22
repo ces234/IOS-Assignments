@@ -178,6 +178,8 @@ struct StartView: View {
                     onReplay: {
                         withAnimation(.spring(duration: 0.7)) {
                             showResults = false
+                            currScore = 0
+                            loadTriviaQuestions()
                         }
                     },
                     currScore: $currScore,
