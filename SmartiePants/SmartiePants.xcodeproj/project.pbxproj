@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D9A559042DB7656000DF1282 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D9A559032DB7656000DF1282 /* ConfettiSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		29AAB44C2D7A1E9B00ABEA09 /* SmartiePants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartiePants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9A559042DB7656000DF1282 /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = SmartiePants;
 			packageProductDependencies = (
+				D9A559032DB7656000DF1282 /* ConfettiSwiftUI */,
 			);
 			productName = SmartiePants;
 			productReference = 29AAB44C2D7A1E9B00ABEA09 /* SmartiePants.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 29AAB4432D7A1E9B00ABEA09;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D9A559022DB7656000DF1282 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 29AAB44D2D7A1E9B00ABEA09 /* Products */;
 			projectDirPath = "";
@@ -337,6 +346,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D9A559022DB7656000DF1282 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D9A559032DB7656000DF1282 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9A559022DB7656000DF1282 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29AAB4442D7A1E9B00ABEA09 /* Project object */;
 }

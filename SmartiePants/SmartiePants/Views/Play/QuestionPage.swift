@@ -15,11 +15,11 @@ struct QuestionPage: View {
     @State private var isTimerFinished = false
     @State private var timerRunning = true
     @Binding var currScore: Int
-    @State private var shuffledAnswers: [String] = []
+    @State private var shuffledAnswers: [String] = []    
 
     var body: some View {
         
-        let question = questions[currentIndex]
+        let question:Question? = questions.isEmpty ? nil : questions[currentIndex]
         let allAnswers = shuffledAnswers
 
         VStack {
@@ -40,8 +40,10 @@ struct QuestionPage: View {
             }.padding()
         }
         .onAppear {
-            let firstQuestion = questions[currentIndex]
-            shuffledAnswers = (firstQuestion.incorrectAnswers + [firstQuestion.correctAnswer]).shuffled()
+            if !questions.isEmpty {
+                let firstQuestion = questions[currentIndex]
+                shuffledAnswers = (firstQuestion.incorrectAnswers + [firstQuestion.correctAnswer]).shuffled()
+            }
         }
 
         
@@ -52,7 +54,7 @@ struct QuestionPage: View {
             
             
             HStack {
-                Text("\(question.question)")
+                Text("\(question?.question ?? "Error getting question")")
                     .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
@@ -72,11 +74,11 @@ struct QuestionPage: View {
                         answerSelected = true
                         timerRunning = false
                         
-                        if answer == question.correctAnswer {
+                        if answer == question?.correctAnswer {
                             currScore += 1
                         }
                     } label: {
-                        AnswerRow(answerText: answer, isCorrect: answer == question.correctAnswer, showAnswer: isTimerFinished || answerSelected)
+                        AnswerRow(answerText: answer, isCorrect: answer == question?.correctAnswer, showAnswer: isTimerFinished || answerSelected)
                     }
                     .buttonStyle(.plain)
                     .disabled(isTimerFinished || answerSelected)
@@ -90,15 +92,17 @@ struct QuestionPage: View {
             HStack{
                 Spacer()
                 Button{
-                    if currentIndex + 1 < questions.count {
-                        currentIndex += 1
-                        answerSelected = false
-                        isTimerFinished = false
-                        timerRunning = true
-                        let nextQuestion = questions[currentIndex]
-                        shuffledAnswers = (nextQuestion.incorrectAnswers + [nextQuestion.correctAnswer]).shuffled()
-                    } else {
-                        onNext()
+                    withAnimation(.spring(duration: 0.6)){
+                        if currentIndex + 1 < questions.count {
+                            currentIndex += 1
+                            answerSelected = false
+                            isTimerFinished = false
+                            timerRunning = true
+                            let nextQuestion = questions[currentIndex]
+                            shuffledAnswers = (nextQuestion.incorrectAnswers + [nextQuestion.correctAnswer]).shuffled()
+                        } else {
+                            onNext()
+                        }
                     }
                 } label: {
                     HStack {

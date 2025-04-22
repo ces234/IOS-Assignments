@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct ResultPage: View {
     let onReplay: () -> Void
@@ -13,6 +14,7 @@ struct ResultPage: View {
     @State var difficulty: Difficulty
     @Environment(\.dismiss) var dismiss
 
+    @State private var confettiCounter = 0
 
     var pointsPerQuestion: Int {
         switch difficulty {
@@ -28,9 +30,22 @@ struct ResultPage: View {
     var totalPoints: Int {
         return currScore * pointsPerQuestion
     }
-
+    
     var body: some View {
+        ZStack {
+            if currScore <= 3 {
+                ForEach(0..<5, id: \.self) { _ in
+                    FallingEmoji()
+                        .position(
+                            x: CGFloat.random(in: 20...UIScreen.main.bounds.width - 20),
+                            y: 0
+                        )
+                }
+            }
+       
         VStack {
+            ConfettiCannon(trigger: $confettiCounter, num: 300, colors: [.blue, .red, .green, .yellow, .pink, .purple, .orange], openingAngle:.degrees(30), closingAngle: .degrees(150), repetitions: 1, repetitionInterval: 1)
+
             Text("Results")
                 .font(.poppins(fontStyle: .title, fontWeight: .bold))
                 .font(.title)
@@ -82,5 +97,18 @@ struct ResultPage: View {
             }
             .padding(.top)
         }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .allowsHitTesting(false) // so it doesn’t block button taps
+        }.onAppear() {
+            if currScore > 3 {
+                confettiCounter += 1
+            }
+        }
     }
+}
+
+#Preview {
+    @Previewable @State var currScore = 5
+
+    ResultPage(onReplay: {}, currScore: $currScore, difficulty: .easy)
 }

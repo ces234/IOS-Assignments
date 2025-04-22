@@ -168,7 +168,7 @@ struct StartView: View {
             
             if startQuiz {
                 QuestionPage(onNext: {
-                    withAnimation(.bouncy(duration: 0.6)){
+                    withAnimation(.spring(duration: 0.6)){
                         startQuiz = false
                         showResults = true
                     }
@@ -176,7 +176,7 @@ struct StartView: View {
             } else if showResults {
                 ResultPage(
                     onReplay: {
-                        withAnimation(.bouncy(duration: 0.7)) {
+                        withAnimation(.spring(duration: 0.7)) {
                             showResults = false
                         }
                     },
