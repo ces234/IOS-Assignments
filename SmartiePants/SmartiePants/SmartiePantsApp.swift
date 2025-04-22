@@ -15,7 +15,6 @@ struct SmartiePantsApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(session)
-//                .environment(\.font, Font.custom("Poppins-Regular", size: 14))
         }
         .modelContainer(for: User.self)
     }

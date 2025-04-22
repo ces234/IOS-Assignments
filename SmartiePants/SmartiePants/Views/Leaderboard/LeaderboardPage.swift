@@ -13,7 +13,6 @@ enum PointsCategory : String, CaseIterable, Identifiable {
     
     case totalPoints
     case dailyStreak
-    // ADD MORE HERE
     
     var displayName: String {
         switch self {
@@ -36,7 +35,6 @@ struct LeaderboardPage: View {
         ScrollView {
             Heading(headingText: "Daily Leaderboard")
             
-            /* TODO: Figure out how to style this */
             VStack(alignment: .leading, spacing: 15) {
                 Menu {
                     Picker(selection: $pointsSorter) {

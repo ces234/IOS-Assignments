@@ -2,7 +2,6 @@ import SwiftUI
 import SwiftData
 
 struct HomePageView: View {
-    /* TODO: Pull these variables from saved data */
     var recentCategories = ["Entertainment", "Science: Computers", "Celebrities"]
     var usersTopCategories = ["Sports", "Entertainment: Music", "Animals"]
     
@@ -240,7 +239,7 @@ struct HomePageView: View {
                                 NavigationLink(destination: LandingPageView(), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
-                            }.padding(.horizontal)
+                            }.padding()
                             
                             Spacer()
                         }

@@ -32,16 +32,6 @@ struct ResultPage: View {
     }
     
     var body: some View {
-//        ZStack {
-//            if currScore <= 3 {
-//                ForEach(0..<5, id: \.self) { _ in
-//                    FallingEmoji()
-//                        .position(
-//                            x: CGFloat.random(in: 20...UIScreen.main.bounds.width - 20),
-//                            y: 0
-//                        )
-//                }
-//            }
        
         VStack {
             ConfettiCannon(trigger: $confettiCounter, num: 300, colors: [.blue, .red, .green, .yellow, .pink, .purple, .orange], openingAngle:.degrees(30), closingAngle: .degrees(150), repetitions: 1, repetitionInterval: 1)
