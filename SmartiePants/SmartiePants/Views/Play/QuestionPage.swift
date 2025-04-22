@@ -25,17 +25,11 @@ struct QuestionPage: View {
         VStack {
             HStack {
                 HStack {
-                    Text("Score")
-                        .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
-                        .foregroundStyle(.white)
-                        .padding()
-                }
-                .background(.lavender)
-                .clipShape(.rect(cornerRadius: 10))
-                HStack {
-                    Text("\(currScore)")
-                        .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
-                        .padding()
+                    Text("Score: \(currScore)")
+                        .font(.poppins(fontStyle: .headline, fontWeight: .medium))
+                        .foregroundStyle(.black)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
                 }
                 .background(.lightGray)
                 .clipShape(.rect(cornerRadius: 10))
@@ -126,6 +120,7 @@ struct QuestionPage: View {
                     .padding(.horizontal)
             }.padding()
         }
+        Spacer()
     }
         
 }

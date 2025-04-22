@@ -100,7 +100,7 @@ struct HomePageView: View {
                                                     .font(.poppins(fontStyle: .body, fontWeight: .semibold))
                                                     .foregroundColor(.black)
                                             } else {
-                                                Text("Rank unavailable")
+                                                Text("0 / 0")
                                                     .font(.poppins(fontStyle: .body, fontWeight: .regular))
                                                     .foregroundColor(.black)
                                             }

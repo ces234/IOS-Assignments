@@ -154,10 +154,14 @@ struct StartView: View {
             
             Spacer()
             
-            Text(categoryName(for: selectedCategoryNumber) ?? "Unknown Category")
-                .font(.poppins(fontStyle: (startQuiz ? .title2 : .title), fontWeight: .bold))
-                .padding(.top)
-            
+            VStack {
+                Text("\(categoryName(for: selectedCategoryNumber) ?? "Unknown Category")")
+                    .font(.poppins(fontStyle: (startQuiz ? .title2 : .title), fontWeight: .bold))
+                
+                Text("(\(selectedDifficulty.rawValue.capitalized))")
+                    .font(.poppins(fontStyle: (startQuiz ? .body : .headline), fontWeight: .semibold))
+            }.padding(.top)
+                        
             Rectangle()
                 .frame(width: 275, height: 2)
                 .padding(.bottom)

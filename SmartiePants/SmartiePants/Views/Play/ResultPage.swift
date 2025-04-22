@@ -32,7 +32,7 @@ struct ResultPage: View {
     var body: some View {
         VStack {
             Text("Results")
-                .font(.poppins(fontStyle: .title2, fontWeight: .bold))
+                .font(.poppins(fontStyle: .title, fontWeight: .bold))
                 .font(.title)
                 .foregroundStyle(.darkBlue)
                 .padding(.bottom)

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct LeaderboardRow: View {
-    /* TODO: Pull from data */
-    var rank = 3 // get from index of ForEach
+    var rank = 4 // get from index of ForEach
     var user = "Caroline"
     var points = 1000
     var isCurrentUser = false //pass in to change color if current user
@@ -17,29 +16,26 @@ struct LeaderboardRow: View {
     var body: some View {
         VStack {
             if rank == 1 {
-                VStack(alignment: .center) {
+                VStack(alignment: .leading) {
                     Text("Smartie Pants of the Day")
-                        .font(.title2)
-                        .bold()
+                        .font(.poppins(fontStyle: .title2, fontWeight: .bold))
+                        .foregroundStyle(.darkBlue)
+                        .underline()
                     
                     HStack {
-                        Text("\(rank)")
-                            .font(.title)
-                            .fontWeight(.black)
-                            .frame(width: 64, height: 64)
-                            .background(Color.yellow) /*TODO: Replace color with gold*/
-                            .clipShape(.circle)
+                        Image("first-place")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
                         
                         VStack(alignment: .leading) {
-                            
                             Text(user)
-                                .font(.title3)
-                                .fontWeight(.semibold)
+                                .font(.poppins(fontStyle: .title3, fontWeight: .bold))
                             
                             Text("Points Earned: \(points)")
-                                .font(.body)
-                                .fontWeight(.regular)
-                        }.padding(.horizontal)
+                                .font(.poppins(fontStyle: .body, fontWeight: .regular))
+                        }
+                        .padding(.leading, 10)
                         
                         Spacer()
                         
@@ -49,24 +45,20 @@ struct LeaderboardRow: View {
             }
             else if rank == 2 || rank == 3 {
                 VStack(alignment: .center) {
-                    HStack {
-                        Text("\(rank)")
-                            .font(.title)
-                            .fontWeight(.black)
-                            .frame(width: 64, height: 64)
-                            .background(rank == 2 ? Color.gray.opacity(0.5) : Color.brown) /*TODO: Replace color*/
-                            .clipShape(.circle)
+                    HStack(alignment: .center) {
+                        Image(rank == 2 ? "second-place" : "third-place")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 58, height: 58)
                         
                         VStack(alignment: .leading) {
-                            
                             Text(user)
-                                .font(.title3)
-                                .fontWeight(.semibold)
+                                .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
                             
                             Text("Points Earned: \(points)")
-                                .font(.body)
-                                .fontWeight(.regular)
-                        }.padding(.horizontal)
+                                .font(.poppins(fontStyle: .body, fontWeight: .regular))
+                        }
+                        .padding(.leading, 10)
                         
                         Spacer()
                         
@@ -77,21 +69,16 @@ struct LeaderboardRow: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("\(rank).  \(user)")
-                            .font(.title3)
-                            .fontWeight(.semibold)
+                            .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
                         
                         Spacer()
                         
                         Text("Points: \(points)")
-                            .font(.body)
-                            .fontWeight(.regular)
+                            .font(.poppins(fontStyle: .body, fontWeight: .regular))
                         
                     }.padding(.horizontal, 30.0)
                         .padding(.vertical, 20.0)
                 }
-//                .frame(maxWidth: .infinity)
-//                .background(Color.gray.opacity(0.15))
-//                .clipShape(.rect(cornerRadius: 10))
             }
         } .frame(maxWidth: .infinity)
             .background(Color.gray.opacity(0.15))

@@ -32,6 +32,16 @@ struct LoginView: View {
         NavigationStack(path: $path) {
             VStack {
                 Spacer()
+                HStack {
+                    Image("icon-img")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .padding(25)
+                        
+                }
+                .background(Circle().fill(Color.lightGray))
+                    .clipShape(Circle())
                 Text("Smartie Pants?")
                     .font(.poppins(fontStyle: .largeTitle, fontWeight: .bold))
                     .foregroundStyle(.darkBlue)

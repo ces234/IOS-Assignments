@@ -21,9 +21,19 @@ struct LandingPageView: View {
                 .font(.poppins(fontStyle: .largeTitle, fontWeight: .heavy))
                 .foregroundStyle(.darkBlue)
             
+            HStack {
+                Image("icon-img")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .padding(25)
+                    
+            }
+            .background(Circle().fill(Color.lightGray))
+                .clipShape(Circle())
+            
             Spacer()
 
-            
             NavigationLink(destination: SignupView()) {
                 Text("Sign up")
                     .font(.poppins(fontStyle: .headline, fontWeight: .semibold))
