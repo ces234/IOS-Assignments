@@ -11,7 +11,7 @@ struct BottomBarView: View {
     init() {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor.gray
+            appearance.backgroundColor = .darkBlue
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
@@ -44,4 +44,14 @@ struct BottomBarView: View {
 
 #Preview {
     BottomBarView()
+        .environmentObject({
+            let mockSession = SessionManager()
+            mockSession.currentUser = User(
+                firstName: "Caroline",
+                lastName: "Caroline",
+                username: "Schafer",
+                password: "1234"
+            )
+            return mockSession
+        }())
 }

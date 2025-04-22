@@ -49,39 +49,44 @@ struct HomePageView: View {
             if let currUser = session.currentUser {
                 NavigationStack {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 16) {
+                        VStack(alignment: .leading) {
                             
                             VStack(alignment: .leading) {
                                 Text("Welcome back,")
-                                    .font(.title2)
+                                    .font(.poppins(fontStyle: .title2, fontWeight: .medium))
+                                    .padding(0)
                                 
-                                Text("\(currUser.firstName)!")
-                                    .font(.title)
-                                    .bold()
+                                Text("\(currUser.firstName)")
+                                    .font(.poppins(fontStyle: .largeTitle, fontWeight: .heavy))
+                                    .foregroundStyle(.darkBlue)
+                                    .padding(0)
                                 
                                 Rectangle()
-                                    .frame(width: 250, height: 3)
+                                    .frame(width: 280, height: 2.5)
+                                    .padding(.vertical, -10)
                             }
+                            .padding()
                             
                             VStack {
                                 HStack {
+                                    Spacer()
+
                                     HStack {
                                         Image(systemName: "trophy")
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 50, height: 50)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.darkBlue)
+                                            .padding(.trailing, 5)
                                         
                                         VStack(alignment: .leading) {
                                             Text("Rank:")
-                                                .font(.headline)
-                                                .fontWeight(.bold)
-                                                .foregroundColor(.white)
+                                                .font(.poppins(fontStyle: .headline, fontWeight: .bold))
+                                                .foregroundColor(.black)
                                             
                                             Text("1 / \(users.count)")
-                                                .font(.subheadline)
-                                                .fontWeight(.medium)
-                                                .foregroundColor(.white)
+                                                .font(.poppins(fontStyle: .body, fontWeight: .semibold))
+                                                .foregroundColor(.black)
                                         }
                                     }
                                     .padding()
@@ -91,43 +96,52 @@ struct HomePageView: View {
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 48, height: 48)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.darkBlue)
+                                            .padding(.trailing, 5)
                                         
                                         VStack(alignment: .leading) {
                                             Text("Points:")
-                                                .font(.headline)
-                                                .fontWeight(.bold)
-                                                .foregroundColor(.white)
+                                                .font(.poppins(fontStyle: .headline, fontWeight: .bold))
+                                                .foregroundColor(.black)
                                             
                                             Text("\(currUser.dailyPoints)")
-                                                .font(.subheadline)
-                                                .fontWeight(.medium)
-                                                .foregroundColor(.white)
+                                                .font(.poppins(fontStyle: .body, fontWeight: .semibold))
+                                                .foregroundColor(.black)
                                         }
                                     }
                                     .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 25)
+                                    
+                                    Spacer()
                                 }
-                                .background(Color.gray)
+                                .background(.lightGray)
                                 .clipShape(.rect(cornerRadius: 15))
+                                .padding(.top, -15)
                                 .padding()
                             }
                             
                             VStack(alignment: .leading) {
                                 Text("History")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
+                                    .font(.poppins(fontStyle: .title2, fontWeight: .bold))
+                                    .padding(.bottom, 0)
+                                    .foregroundStyle(.darkBlue)
                                 
                                 List {
                                     HStack {
-                                        Text("Daily Streak:").bold()
+                                        Text("Daily Streak:")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
                                         Text("\(currUser.dailyStreak)")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .medium))
                                     }
                                     HStack {
-                                        Text("Daily Points Record").bold()
+                                        Text("Daily Points Record")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
                                         Text("\(currUser.dailyPoints)")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .medium))
                                     }
                                     VStack(alignment: .leading) {
-                                        Text("Top Categories").bold()
+                                        Text("Top Categories")
+                                            .font(.poppins(fontStyle: .body, fontWeight: .semibold))
                                         
                                         ScrollView(.horizontal, showsIndicators: false) {
                                             HStack(spacing: 10) {
@@ -137,10 +151,10 @@ struct HomePageView: View {
                                                     .map { $0.key }
                                                 ForEach(topCategories, id: \.self) { category in
                                                     Text(category)
-                                                        .font(.callout)
-                                                        .padding(8)
-                                                        .background(Color.gray.opacity(0.3))
-                                                        .clipShape(RoundedRectangle(cornerRadius: 7))
+                                                        .font(.poppins(fontStyle: .callout, fontWeight: .regular))
+                                                        .padding(10)
+                                                        .background(.lightGray)
+                                                        .clipShape(RoundedRectangle(cornerRadius: 8))
                                                 }
                                             }
                                             .padding(.horizontal)
@@ -155,8 +169,8 @@ struct HomePageView: View {
                             
                             VStack(alignment: .leading) {
                                 Text("Recent Categories")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
+                                    .font(.poppins(fontStyle: .title2, fontWeight: .bold))
+                                    .foregroundStyle(.darkBlue)
                                 
                                 VStack(spacing: 8) {
                                     ForEach(currUser.recentCategories, id: \.self) { category in
@@ -207,6 +221,8 @@ struct HomePageView: View {
                 username: "Schafer",
                 password: "1234"
             )
+            mockSession.currentUser?.categoryPlayCounts = ["Sports": 10, "Geography": 20, "Entertaiment: Books": 15]
+            mockSession.currentUser?.recentCategories = ["Sports", "Science & Nature", "Geography"]
             return mockSession
         }())
 }

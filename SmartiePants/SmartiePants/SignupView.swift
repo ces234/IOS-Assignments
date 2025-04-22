@@ -43,59 +43,60 @@ struct SignupView: View {
             Spacer()
             
             Text("Are you the")
-                .font(.largeTitle)
+                .font(.poppins(fontStyle: .largeTitle, fontWeight: .medium))
                 .multilineTextAlignment(.center)
             
             Text("Smartie Pants?")
-                .font(.largeTitle)
-                .bold()
+                .font(.poppins(fontStyle: .largeTitle, fontWeight: .bold))
+                .foregroundStyle(.darkBlue)
             
             
             VStack{
                 Text("Sign up")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .bold()
-                    .font(.system(size: 24))
+                    .font(.poppins(fontStyle: .title2, fontWeight: .semibold))
                 
                 HStack (spacing: 10){
                     TextField("First Name", text: $firstName)
                         .padding()
-                        .frame(width: 160, height: 40)
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(8)
                         .textFieldStyle(PlainTextFieldStyle())
+                        .font(.poppins(fontStyle: .body, fontWeight: .regular))
+                    
                     TextField("Last Name", text: $lastName)
                         .padding()
-                        .frame(width: 160, height: 40)
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(8)
                         .textFieldStyle(PlainTextFieldStyle())
+                        .font(.poppins(fontStyle: .body, fontWeight: .regular))
                 }
                 
                 TextField("Username", text: $username)
                     .padding()
-                    .frame(width: 330, height: 40)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(8)
                     .textFieldStyle(PlainTextFieldStyle())
+                    .font(.poppins(fontStyle: .body, fontWeight: .regular))
                 
                 SecureField("Password", text: $password)
                     .padding()
-                    .frame(width: 330, height: 40)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(8)
                     .textFieldStyle(PlainTextFieldStyle())
+                    .font(.poppins(fontStyle: .body, fontWeight: .regular))
                 
                 HStack{
                     Spacer()
                     Button("Sign up") {
                         handleSignUp()
                     }
-                        .font(.headline)
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.black))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: 100)
+                    .font(.poppins(fontStyle: .headline, fontWeight: .semibold))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(.darkBlue))
+                    .foregroundColor(.white)
+                    
                 }
 
             }

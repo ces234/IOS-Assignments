@@ -14,22 +14,22 @@ struct LandingPageView: View {
             Spacer()
             
             Text("Are you the")
-                .font(.largeTitle)
+                .font(.poppins(fontStyle: .largeTitle, fontWeight: .medium))
                 .multilineTextAlignment(.center)
             
             Text("Smartie Pants?")
-                .font(.largeTitle)
-                .bold()
+                .font(.poppins(fontStyle: .largeTitle, fontWeight: .heavy))
+                .foregroundStyle(.darkBlue)
             
             Spacer()
 
             
             NavigationLink(destination: SignupView()) {
                 Text("Sign up")
-                    .font(.headline)
+                    .font(.poppins(fontStyle: .headline, fontWeight: .semibold))
                     .padding()
                     .frame(maxWidth: 250)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.black))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(.darkBlue))
                     .foregroundColor(.white)
             }
 
@@ -40,7 +40,7 @@ struct LandingPageView: View {
             .font(.headline)
             .padding()
             .frame(maxWidth: 250)
-            .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray))
+            .background(RoundedRectangle(cornerRadius: 10).fill(.lightGray))
             .foregroundColor(.black)
 
             

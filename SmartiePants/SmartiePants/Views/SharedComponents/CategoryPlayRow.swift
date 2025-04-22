@@ -14,8 +14,7 @@ struct CategoryPlayRow: View {
         VStack(alignment: .leading) {
             HStack {
                 Text(category)
-                    .font(.title3)
-                    .fontWeight(.medium)
+                    .font(.poppins(fontStyle: .headline, fontWeight: .medium))
                 
                 Spacer()
                 
@@ -23,13 +22,13 @@ struct CategoryPlayRow: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width:15, height: 15)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(.lavender)
                 
             }.padding(.horizontal, 25.0)
                 .padding(.vertical, 20.0)
         }
         .frame(maxWidth: .infinity)
-        .background(Color.gray.opacity(0.2))
+        .background(.lightGray)
         .clipShape(.rect(cornerRadius: 10))
     }
 }

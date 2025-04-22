@@ -32,8 +32,14 @@ struct LoginView: View {
         NavigationStack(path: $path) {
             VStack {
                 Spacer()
-                Text("Smartie Pants?").font(.largeTitle).bold()
+                Text("Smartie Pants?")
+                    .font(.poppins(fontStyle: .largeTitle, fontWeight: .bold))
+                    .foregroundStyle(.darkBlue)
+                
                 VStack(spacing: 16) {
+                    Text("Welcome Back")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.poppins(fontStyle: .title2, fontWeight: .semibold))
                     TextField("Username", text: $username)
                         .textFieldStyle(.plain)
                         .padding().background(.gray.opacity(0.2))
@@ -51,9 +57,10 @@ struct LoginView: View {
                         Button("Log In") {
                             handleLogin()
                         }
-                        .font(.headline)
-                        .padding()
-                        .background(.black, in: RoundedRectangle(cornerRadius: 10))
+                        .font(.poppins(fontStyle: .headline, fontWeight: .semibold))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(RoundedRectangle(cornerRadius: 10).fill(.darkBlue))
                         .foregroundColor(.white)
                     }
                 }
@@ -75,4 +82,8 @@ struct LoginView: View {
             }
         }
     }
+}
+
+#Preview {
+    LoginView()
 }
