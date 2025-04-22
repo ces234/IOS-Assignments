@@ -12,12 +12,15 @@ enum PointsCategory : String, CaseIterable, Identifiable {
     var id: Self { self }
     
     case totalPoints
+    case dailyStreak
     // ADD MORE HERE
     
     var displayName: String {
         switch self {
         case .totalPoints:
             return "Total Points"
+        case .dailyStreak:
+            return "Daily Streak"
         }
     }
     
@@ -60,10 +63,15 @@ struct LeaderboardPage: View {
                     .padding(.horizontal, 20)
                     .background(RoundedRectangle(cornerRadius: 8).fill(.darkBlue))
                 }
-//                .padding(.vertical, 10)
-                
-                ForEach(Array(users.enumerated()), id: \.element.id) { index, user in
-                    LeaderboardRow(rank: index + 1, user: user.username, points: user.dailyPoints)
+                .padding(.top, -10)
+                if pointsSorter == .totalPoints {
+                    ForEach(Array(users.enumerated()), id: \.element.id) { index, user in
+                        LeaderboardRow(rank: index + 1, user: user.username, points: user.dailyPoints)
+                    }
+                } else if pointsSorter == .dailyStreak {
+                    ForEach(Array(users.enumerated()), id: \.element.id) { index, user in
+                        LeaderboardRow(label: "Streak", rank: index + 1, user: user.username, points: user.dailyStreak)
+                    }
                 }
             }.padding()
             

@@ -165,6 +165,7 @@ struct HomePageView: View {
                                                 ForEach(currUser.topCategories, id: \.self) { category in
                                                     Text(category)
                                                         .font(.poppins(fontStyle: .callout, fontWeight: .regular))
+                                                        .foregroundStyle(.black)
                                                         .padding(10)
                                                         .background(.lightGray)
                                                         .clipShape(RoundedRectangle(cornerRadius: 8))

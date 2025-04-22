@@ -15,6 +15,7 @@ struct CategoryPlayRow: View {
             HStack {
                 Text(category)
                     .font(.poppins(fontStyle: .headline, fontWeight: .medium))
+                    .foregroundStyle(.black)
                 
                 Spacer()
                 

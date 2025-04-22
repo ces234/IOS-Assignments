@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LeaderboardRow: View {
+    @State var label:String = "Points Earned"
     var rank = 4 // get from index of ForEach
     var user = "Caroline"
     var points = 1000
@@ -32,7 +33,7 @@ struct LeaderboardRow: View {
                             Text(user)
                                 .font(.poppins(fontStyle: .title3, fontWeight: .bold))
                             
-                            Text("Points Earned: \(points)")
+                            Text("\(label): \(points)")
                                 .font(.poppins(fontStyle: .body, fontWeight: .regular))
                         }
                         .padding(.leading, 10)
@@ -55,7 +56,7 @@ struct LeaderboardRow: View {
                             Text(user)
                                 .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
                             
-                            Text("Points Earned: \(points)")
+                            Text("\(label): \(points)")
                                 .font(.poppins(fontStyle: .body, fontWeight: .regular))
                         }
                         .padding(.leading, 10)
@@ -69,7 +70,7 @@ struct LeaderboardRow: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("\(rank).  \(user)")
-                            .font(.poppins(fontStyle: .title3, fontWeight: .semibold))
+                            .font(.poppins(fontStyle: .headline, fontWeight: .semibold))
                         
                         Spacer()
                         
