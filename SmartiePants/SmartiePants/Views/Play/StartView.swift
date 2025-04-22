@@ -45,12 +45,15 @@ struct StartView: View {
         (name: "Cartoon & Animations", number: 32)
     ]
     
+    
     func loadTriviaQuestions(category: String? = nil) {
         fetchingQuestions = true
         Task {
             await triviaModel.refresh(category: category, difficulty: selectedDifficulty.rawValue)
             fetchingQuestions = false
         }
+        print("selected category number: \(selectedCategoryNumber ?? -1)")
+
     }
     
     func categoryName(for number: Int?) -> String? {

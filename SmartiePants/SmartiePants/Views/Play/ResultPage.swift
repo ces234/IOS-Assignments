@@ -11,6 +11,8 @@ struct ResultPage: View {
     let onReplay: () -> Void
     @Binding var currScore: Int
     @State var difficulty: Difficulty
+    @Environment(\.dismiss) var dismiss
+
 
     var pointsPerQuestion: Int {
         switch difficulty {
@@ -67,10 +69,10 @@ struct ResultPage: View {
                 .clipShape(.rect(cornerRadius: 10))
 
                 Button {
-                    // TODO: Navigate back to categories/home
+                    dismiss()
                 } label: {
                     HStack {
-                        Text("Home")
+                        Text("Finish")
                             .font(.callout)
                             .fontWeight(.medium)
                     }

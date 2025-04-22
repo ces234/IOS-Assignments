@@ -11,6 +11,35 @@ struct HomePageView: View {
     
     @Query var users: [User]
     
+    
+    let categories = [
+        (name: "General Knowledge", number: 9),
+        (name: "Books", number: 10),
+        (name: "Film", number: 11),
+        (name: "Music", number: 12),
+        (name: "Musical Theater", number: 13),
+        (name: "Television", number: 14),
+        (name: "Video Games", number: 15),
+        (name: "Board Games", number: 16),
+        (name: "Science & Nature", number: 17),
+        (name: "Computers", number: 18),
+        (name: "Mathematics", number: 19),
+        (name: "Mythology", number: 20),
+        (name: "Sports", number: 21),
+        (name: "Geography", number: 22),
+        (name: "History", number: 23),
+        (name: "Politics", number: 24),
+        (name: "Art", number: 25),
+        (name: "Celebrities", number: 26),
+        (name: "Animals", number: 27),
+        (name: "Vehicles", number: 28),
+        (name: "Comics", number: 29),
+        (name: "Gadgets", number: 30),
+        (name: "Japanese Anime & Manga", number: 31),
+        (name: "Cartoon & Animations", number: 32)
+    ]
+    
+    
     @State var isCategorySelected = false
     @State var selectedCategoryNumber: Int?
     @State var selectedDifficulty: Difficulty = .easy
@@ -133,9 +162,15 @@ struct HomePageView: View {
                                     ForEach(currUser.recentCategories, id: \.self) { category in
                                         CategoryPlayRow(category: category)
                                             .onTapGesture {
-                                                isCategorySelected.toggle()
+                                                if let categoryNumber = categories.first(where: { $0.name == category })?.number {
+                                                    selectedCategoryNumber = categoryNumber
+                                                    isCategorySelected = true
+                                                } else {
+                                                    print("Category number not found for: \(category)")
+                                                }
                                             }
                                     }
+
                                 }
                             }
                             .padding(.horizontal)
