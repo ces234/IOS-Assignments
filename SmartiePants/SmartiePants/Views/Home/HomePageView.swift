@@ -11,6 +11,17 @@ struct HomePageView: View {
     
     @Query var users: [User]
     
+    var userRank: Int? {
+        guard let currentUser = session.currentUser else { return nil }
+        let sortedUsers = users.sorted { $0.dailyPoints > $1.dailyPoints }
+
+        // Find index (0-based, so add 1 for rank)
+        if let index = sortedUsers.firstIndex(where: { $0.id == currentUser.id }) {
+            return index + 1
+        } else {
+            return nil
+        }
+    }
     
     let categories = [
         (name: "General Knowledge", number: 9),
@@ -78,10 +89,16 @@ struct HomePageView: View {
                                                 .fontWeight(.bold)
                                                 .foregroundColor(.white)
                                             
-                                            Text("1 / \(users.count)")
-                                                .font(.subheadline)
-                                                .fontWeight(.medium)
-                                                .foregroundColor(.white)
+                                            if let rank = userRank {
+                                                Text("\(rank) / \(users.count)")
+                                                    .font(.subheadline)
+                                                    .fontWeight(.medium)
+                                                    .foregroundColor(.white)
+                                            } else {
+                                                Text("Rank unavailable")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.white)
+                                            }
                                         }
                                     }
                                     .padding()
@@ -123,24 +140,24 @@ struct HomePageView: View {
                                         Text("\(currUser.dailyStreak)")
                                     }
                                     HStack {
-                                        Text("Daily Points Record").bold()
+                                        Text("Daily Points Record:").bold()
                                         Text("\(currUser.dailyPoints)")
                                     }
                                     VStack(alignment: .leading) {
-                                        Text("Top Categories").bold()
+                                        Text("Top Categories:").bold()
                                         
                                         ScrollView(.horizontal, showsIndicators: false) {
                                             HStack(spacing: 10) {
-                                                let topCategories = currUser.categoryPlayCounts
-                                                    .sorted { $0.value > $1.value }
-                                                    .prefix(3)
-                                                    .map { $0.key }
-                                                ForEach(topCategories, id: \.self) { category in
+                                                ForEach(currUser.topCategories, id: \.self) { category in
                                                     Text(category)
                                                         .font(.callout)
                                                         .padding(8)
                                                         .background(Color.gray.opacity(0.3))
                                                         .clipShape(RoundedRectangle(cornerRadius: 7))
+                                                }
+                                                
+                                                if currUser.topCategories.count == 0 {
+                                                    Text("No categories played yet!")
                                                 }
                                             }
                                             .padding(.horizontal)
@@ -159,6 +176,11 @@ struct HomePageView: View {
                                     .fontWeight(.bold)
                                 
                                 VStack(spacing: 8) {
+                                    
+                                    if currUser.topCategories.count == 0 {
+                                        Text("No categories played yet!")
+                                    }
+                                    
                                     ForEach(currUser.recentCategories, id: \.self) { category in
                                         CategoryPlayRow(category: category)
                                             .onTapGesture {
@@ -193,8 +215,6 @@ struct HomePageView: View {
             }
         }
     }
-
-   
 }
 
 #Preview {

@@ -61,10 +61,25 @@ struct StartView: View {
         return categories.first(where: { $0.number == number })?.name
     }
     
-    func updateUserScore() {
+    var pointsPerQuestion: Int {
+        switch selectedDifficulty {
+        case .easy:
+            return 100
+        case .medium:
+            return 200
+        case .hard:
+            return 300
+        }
+    }
+
+    var totalPoints: Int {
+        return currScore * pointsPerQuestion
+    }
+    
+    func updateUserStats() {
         guard let user = session.currentUser else { return }
 
-        user.dailyPoints += currScore
+        user.dailyPoints += totalPoints
 
         if let number = selectedCategoryNumber,
            let category = categoryName(for: number) {
@@ -77,9 +92,32 @@ struct StartView: View {
                 user.recentCategories = Array(user.recentCategories.prefix(5))
             }
         }
+        
+        // update daily streak
+        let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+
+            if let last = user.lastPlayedDate {
+                let lastDate = calendar.startOfDay(for: last)
+                let daysBetween = calendar.dateComponents([.day], from: lastDate, to: today).day ?? 0
+
+                if daysBetween == 1 {
+                    // increment streak
+                    user.dailyStreak += 1
+                } else if daysBetween > 1 {
+                    // reset streak
+                    user.dailyStreak = 1
+                }
+            } else {
+                // first time playing
+                user.dailyStreak = 1
+            }
+
+            user.lastPlayedDate = today
 
         try? modelContext.save()
     }
+    
     var body: some View {
         VStack{
             if fetchingQuestions {
@@ -142,7 +180,7 @@ struct StartView: View {
                     difficulty: selectedDifficulty
                 )
                 .onAppear {
-                       updateUserScore()
+                       updateUserStats()
                    }
             } else {
                 Button{

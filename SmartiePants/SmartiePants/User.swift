@@ -20,6 +20,7 @@ final class User {
     var dailyStreak: Int = 0
     var categoryPlayCounts: [String: Int] = [:]
     var recentCategories: [String] = []
+    var lastPlayedDate: Date? = nil
 
     init(firstName: String, lastName: String, username: String, password: String) {
         self.firstName = firstName
@@ -28,4 +29,14 @@ final class User {
         self.password = password
     }
 }
+
+extension User {
+    var topCategories: [String] {
+        categoryPlayCounts
+            .sorted { $0.value > $1.value }
+            .prefix(3)
+            .map { $0.key }
+    }
+}
+
 
