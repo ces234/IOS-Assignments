@@ -185,7 +185,8 @@ struct StartView: View {
                 )
                 .onAppear {
                        updateUserStats()
-                   }
+               }
+                
             } else {
                 Button{
                     withAnimation(.bouncy(duration: 0.7)) {
@@ -212,6 +213,9 @@ struct StartView: View {
             }
             
             Spacer()
+            if showResults {
+                Spacer()
+            }
         }.padding()
         .onAppear {
             loadTriviaQuestions(category: selectedCategoryNumber != nil ? String(selectedCategoryNumber!) : nil)
@@ -223,4 +227,23 @@ struct StartView: View {
             }
         }
     }
+}
+
+#Preview {
+    @Previewable @State var selectedNum:Int?  = 5
+    @Previewable @State var diff:Difficulty  = .easy
+    
+    StartView(selectedCategoryNumber: $selectedNum, selectedDifficulty: $diff)
+        .environmentObject({
+            let mockSession = SessionManager()
+            mockSession.currentUser = User(
+                firstName: "Caroline",
+                lastName: "Caroline",
+                username: "Schafer",
+                password: "1234"
+            )
+            mockSession.currentUser?.categoryPlayCounts = ["Sports": 10, "Geography": 20, "Entertaiment: Books": 15]
+            mockSession.currentUser?.recentCategories = ["Sports", "Science & Nature", "Geography"]
+            return mockSession
+        }())
 }
