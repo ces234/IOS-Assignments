@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         if session.currentUser != nil {
-            BottomBarView()
+            CustomTabBar()
         } else {
             LandingPageView()
         }
